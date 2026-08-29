@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Drón Matrica Stúdió</title>
-<meta name="description" content="Nyomdakész drón azonosító matrica generátor — üzembentartói szám, lajstromszám, QR kód, mm-pontos nyomtatás. Minden adat a böngésződben marad.">
+<meta name="description" content="Nyomdakész drón azonosító matrica generátor: üzembentartói szám, lajstromszám, QR kód, mm-pontos nyomtatás. Minden adat a böngésződben marad.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="vendor/bootstrap.min.css">
 <link rel="stylesheet" href="vendor/inter.css">
@@ -127,7 +127,7 @@
                 <option value="+381">+381</option>
                 <option value="+380">+380</option>
                 <option value="+49">+49</option>
-                <option value="">—</option>
+                <option value="" data-i18n="opt.none">nincs</option>
               </select>
             </div>
             <div class="field">
@@ -166,7 +166,7 @@
             <div class="field field-narrow">
               <label for="f-class" data-i18n="f.class">Osztály</label>
               <select id="f-class" class="form-select">
-                <option value="">—</option>
+                <option value="" data-i18n="opt.none">nincs</option>
                 <option>C0</option><option>C1</option><option>C2</option>
                 <option>C3</option><option>C4</option><option>C5</option><option>C6</option>
               </select>
@@ -280,9 +280,9 @@
           <div class="field">
             <label for="d-font" data-i18n="d.font">Betűtípus</label>
             <select id="d-font" class="form-select"></select>
-            <div class="hint" data-i18n="d.font.hint">Csak nyomtatásbiztos, rendszerszinten elérhető betűcsaládok — így a PNG és PDF export pontosan az előnézetet adja vissza.</div>
+            <div class="hint" data-i18n="d.font.hint">Csak nyomtatásbiztos, rendszerszinten elérhető betűcsaládok, így a PNG és PDF export pontosan az előnézetet adja vissza.</div>
             <label class="switch"><input type="checkbox" id="d-mono"><span data-i18n="d.mono">Azonosítók monospace betűvel</span></label>
-            <div class="hint" data-i18n="d.mono.hint">Az azonosítók, a telefonszám és a sorozatszám mindig monospace betűt kapnak — a 0/O és 1/l így nem téveszthető össze. Kapcsold ki, ha a választott betűtípust mindenhol szeretnéd.</div>
+            <div class="hint" data-i18n="d.mono.hint">Az azonosítók, a telefonszám és a sorozatszám mindig monospace betűt kapnak, a 0/O és 1/l így nem téveszthető össze. Kapcsold ki, ha a választott betűtípust mindenhol szeretnéd.</div>
           </div>
           <div class="field">
             <label for="d-scale"><span data-i18n="d.scale">Kitöltés</span><output id="d-scale-o" class="mono"></output></label>
