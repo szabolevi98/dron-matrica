@@ -18,7 +18,7 @@ const $ = id => document.getElementById(id);
 const MM_PX = 96 / 25.4;
 
 const SAMPLE = {
-  operatorId: 'HUN87astt6ah1kj-xyz',
+  operatorId: 'HUN87astt6ah1kj',
   regId: 'HA-DR1234',
   owner: 'Kovács János',
   phone: '30 123 4567',
@@ -38,7 +38,6 @@ function defaultState(demo) {
   return {
     v: 1,
     lang: 'hu',
-    demo: !!demo,
     active: 'operator',
     data: {
       operatorId: demo ? SAMPLE.operatorId : '',
@@ -259,7 +258,6 @@ function buildTextPresets() {
     c.textContent = t(key);
     c.addEventListener('click', () => {
       state.data.text = t(key);
-      state.demo = false;
       $('f-text').value = state.data.text;
       commit();
     });
@@ -585,9 +583,7 @@ function updateWarnings(info, d, cc) {
 
   if (!d.operatorId) list.push(['err', 'v.empty']);
   else if (d.operatorState === 'odd') list.push(['warn', 'v.opFormat']);
-  if (d.operatorSecret) list.push(['ok', 'v.secretCut']);
-  if (state.demo) list.push(['warn', 'v.sample']);
-  if (!d.regId && state.active === 'reg') list.push(['warn', 'v.noReg']);
+  if (!d.regId && (state.active === 'reg' || state.active === 'miniReg')) list.push(['warn', 'v.noReg']);
   if (info && Number.isFinite(info.minFont) && info.minFont > 0 && info.minFont < 1.8) list.push(['warn', 'v.tiny']);
   if (cc.level === 'bad') list.push(['warn', 'v.contrast']);
   if (info && info.qr && info.qr.module < 0.34) list.push(['warn', 'v.qrTight']);
@@ -705,7 +701,6 @@ function onInput(id, apply, light) {
 function dataInput(id, key) {
   onInput(id, node => {
     state.data[key] = node.value;
-    state.demo = false;
   }, true);
 }
 
