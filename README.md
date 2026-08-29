@@ -82,7 +82,7 @@ Az eszköz a jelölés elkészítésében segít, de nem jogi tanácsadás. Az �
 
 ## In English
 
-A client-side studio for print-ready drone identification labels: EU/EASA operator registration number, aircraft registration, contact and battery labels, QR codes, and millimetre-accurate printing. Labels are rendered as SVG with real mm coordinates, so printed output matches the specified size exactly. Includes auto-fitting typography, a WCAG contrast checker, multi-label A4 sheet layout with cut marks, PNG/SVG/PDF export, saved device profiles, and a Hungarian/English interface. No backend, nothing leaves the browser.
+A client-side studio for print-ready drone identification labels. Seven label types cover the two mandatory identifiers, the operator registration number and the aircraft registration, either on separate labels or combined on one, down to 26 × 10 mm minis, plus a contact label with a QR code and numbered battery labels. Labels are rendered as SVG with real millimetre coordinates, so printed output matches the specified size exactly. Includes auto-fitting typography with a readable minimum size, a WCAG contrast checker, a multi-label A4 sheet layout with optional cut marks, PNG/SVG/PDF export, saved device profiles, and a Hungarian/English interface. Every dependency is vendored, so it also runs offline. No backend, nothing leaves the browser.
 
 ## Licenc
 
