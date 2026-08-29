@@ -34,7 +34,7 @@ const TYPE_DEFS = {
     w: 55, h: 35, shape: 'round', radius: 14, qr: false,
     blocks: [
       ['label.reg', 1], ['regId', 1], ['rule', 1],
-      ['operatorId', 1], ['model', 0], ['serial', 0], ['spec', 0], ['logo', 0]
+      ['model', 1], ['spec', 1], ['serial', 0], ['logo', 0]
     ]
   },
   contact: {
