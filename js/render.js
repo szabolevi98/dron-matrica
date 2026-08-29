@@ -32,15 +32,14 @@ function num(v) {
   return Math.round(v * 1000) / 1000;
 }
 
-function shapeNode(shape, x, y, w, h, radius, attrs) {
+function shapeNode(shape, x, y, w, h, r, attrs) {
   if (shape === 'circle') {
-    const r = Math.min(w, h) / 2;
-    return el('circle', { cx: num(x + w / 2), cy: num(y + h / 2), r: num(r), ...attrs });
+    return el('circle', { cx: num(x + w / 2), cy: num(y + h / 2), r: num(Math.min(w, h) / 2), ...attrs });
   }
   if (shape === 'ellipse') {
     return el('ellipse', { cx: num(x + w / 2), cy: num(y + h / 2), rx: num(w / 2), ry: num(h / 2), ...attrs });
   }
-  const rx = shape === 'rect' ? 0 : Math.min(w, h) * (radius / 100);
+  const rx = Math.max(0, Math.min(r, Math.min(w, h) / 2));
   return el('rect', { x: num(x), y: num(y), width: num(w), height: num(h), rx: num(rx), ry: num(rx), ...attrs });
 }
 
@@ -92,15 +91,17 @@ export function renderSticker(typeId, state, d) {
   });
   svg.setAttribute('xmlns:xlink', XLINK);
 
+  const outerR = cfg.shape === 'rect' ? 0 : Math.min(W, H) * (cfg.radius / 100);
+
   const uid = 'c' + Math.random().toString(36).slice(2, 8);
   const defs = el('defs');
   const clip = el('clipPath', { id: uid });
-  clip.appendChild(shapeNode(cfg.shape, 0, 0, W, H, cfg.radius, {}));
+  clip.appendChild(shapeNode(cfg.shape, 0, 0, W, H, outerR, {}));
   defs.appendChild(clip);
   svg.appendChild(defs);
 
   const base = el('g', { 'clip-path': `url(#${uid})` });
-  base.appendChild(shapeNode(cfg.shape, 0, 0, W, H, cfg.radius, { fill: style.bg }));
+  base.appendChild(shapeNode(cfg.shape, 0, 0, W, H, outerR, { fill: style.bg }));
 
   if (media.bg) {
     const img = el('image', {
@@ -115,7 +116,7 @@ export function renderSticker(typeId, state, d) {
   svg.appendChild(base);
 
   if (bw > 0) {
-    svg.appendChild(shapeNode(cfg.shape, bw / 2, bw / 2, W - bw, H - bw, cfg.radius, {
+    svg.appendChild(shapeNode(cfg.shape, bw / 2, bw / 2, W - bw, H - bw, outerR - bw / 2, {
       fill: 'none',
       stroke: style.borderColor,
       'stroke-width': num(bw)
