@@ -18,7 +18,7 @@ const $ = id => document.getElementById(id);
 const MM_PX = 96 / 25.4;
 
 const SAMPLE = {
-  operatorId: 'HUN87astt6ah1kj',
+  operatorId: 'HUNabc123def456',
   regId: 'HA00ABC-UAS',
   owner: 'Kovács János',
   phone: '30 123 4567',
