@@ -2,7 +2,7 @@
 
 Nyomdakész drón azonosító matricák a böngésződben: üzembentartói regisztrációs szám, lajstromszám, kontakt- és akkumulátor-címkék, QR kóddal, mm-pontos nyomtatással. Nincs backend, nincs feltöltés: minden adat a gépeden marad.
 
-**[▶ Élő demó](https://szabolevi98.github.io/dron-matrica/)**
+**Élő demó:** [dron-matrica.levente.net](https://dron-matrica.levente.net/) · [GitHub Pages](https://szabolevi98.github.io/dron-matrica/)
 
 ![Drón Matrica Stúdió](assets/screenshot.png)
 
