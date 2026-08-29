@@ -68,8 +68,7 @@ function loadPdfLib() {
   if (!pdfLoading) {
     pdfLoading = new Promise((resolve, reject) => {
       const s = document.createElement('script');
-      s.src = 'https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js';
-      s.crossOrigin = 'anonymous';
+      s.src = 'vendor/jspdf.umd.min.js';
       s.onload = () => resolve(window.jspdf && window.jspdf.jsPDF);
       s.onerror = () => reject(new Error('pdf'));
       document.head.appendChild(s);

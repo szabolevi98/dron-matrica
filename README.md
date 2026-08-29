@@ -69,9 +69,11 @@ js/
   validate.js   azonosító-ellenőrzés, kontraszt számítás
   store.js      localStorage profilok, megosztható link
   i18n.js       magyar és angol szótár
+vendor/         helyben tárolt függőségek és betűtípus
+assets/         favicon és képek
 ```
 
-Külső függőség csak CDN-ről: Bootstrap 5, `qrcode-generator`, és PDF exportnál `jsPDF` (igény szerint töltődik be).
+Nincs külső hálózati hívás: a Bootstrap, a `qrcode-generator`, a `jsPDF` és az Inter betűtípus mind a `vendor/` mappában van, a repóból töltődik be. Az oldal internet nélkül is teljes értékűen működik.
 
 ## Megjegyzés
 
