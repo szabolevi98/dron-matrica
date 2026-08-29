@@ -61,7 +61,7 @@ function defaultState(demo) {
       theme: 'midnight',
       bg: '#0f172a', fg: '#ffffff', accent: '#38bdf8', borderColor: '#38bdf8',
       font: 'sans', fill: 92, tracking: 2, align: 'middle',
-      upper: true, monoIds: true, bilingual: false,
+      upper: true, monoIds: true, bilingual: false, regCaption: 'reg',
       border: 0.35, padding: 2.2
     },
     qr: { mode: 'tel', text: '', ecl: 'M', pos: 'right', scale: 42 },
@@ -539,6 +539,7 @@ function syncInputs() {
   $('d-border-o').textContent = s.border.toFixed(2) + ' mm';
   setVal('d-padding', s.padding);
   $('d-padding-o').textContent = s.padding.toFixed(1) + ' mm';
+  setVal('d-regCaption', s.regCaption);
   setVal('d-upper', s.upper);
   setVal('d-mono', s.monoIds);
   setVal('d-bilingual', s.bilingual);
@@ -905,6 +906,7 @@ function wire() {
   onInput('d-tracking', n => { state.style.tracking = parseInt(n.value, 10); }, true);
   onInput('d-border', n => { state.style.border = parseFloat(n.value); }, true);
   onInput('d-padding', n => { state.style.padding = parseFloat(n.value); }, true);
+  onInput('d-regCaption', n => { state.style.regCaption = n.value; });
   onInput('d-upper', n => { state.style.upper = n.checked; });
   onInput('d-mono', n => { state.style.monoIds = n.checked; });
   onInput('d-bilingual', n => { state.style.bilingual = n.checked; });

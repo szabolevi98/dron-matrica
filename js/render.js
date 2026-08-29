@@ -73,12 +73,13 @@ function fitSizes(rows, budget, unit) {
 
 function faceText(block, style) {
   if (!block.face) return '';
+  const key = block.face === 'face.reg' && style.regCaption === 'id' ? 'face.regAlt' : block.face;
   if (style.bilingual) {
-    const hu = tIn('hu', block.face);
-    const en = tIn('en', block.face);
+    const hu = tIn('hu', key);
+    const en = tIn('en', key);
     return hu === en ? hu : hu + ' / ' + en;
   }
-  return t(block.face);
+  return t(key);
 }
 
 function rowsFor(typeCfg, d, style, media) {
