@@ -14,9 +14,10 @@ Nyomdakész drón azonosító matricák a böngésződben — üzembentartói re
 | --- | --- | --- |
 | Üzembentartói matrica | 55 × 35 mm | A kötelező `HUN…` regisztrációs jelölés |
 | Lajstrom matrica | 55 × 35 mm | Lajstromszám, típus, tömeg és osztály |
-| Kontakt matrica | 55 × 35 mm | Név, telefon, e-mail + QR a megtalálónak |
+| Vegyes matrica | 55 × 35 mm | Mindkét kötelező azonosító egyetlen matricán |
 | Mini · üzembentartó | 26 × 10 mm | Csak a `HUN…` szám — akkura, kontrollerre, táskára |
 | Mini · lajstrom | 26 × 10 mm | Csak a lajstromszám, ugyanabban a méretben |
+| Kontakt matrica | 55 × 35 mm | Név, telefon, e-mail + QR a megtalálónak |
 | Akku címke | 40 × 20 mm | Sorszám, kapacitás, üzembe helyezés dátuma |
 
 A jogszabály csak a két azonosítót — az üzembentartói számot és a drón lajstromszámát — írja elő; a név, telefonszám, e-mail és weboldal mind opcionális. Ezért az első két típus önmagában is elég, a többi extra.
