@@ -209,6 +209,7 @@ body {
 
 .side-tabs {
   flex: 0 0 auto;
+  height: 46px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   border-bottom: 1px solid var(--line);
@@ -220,9 +221,12 @@ body {
   color: var(--muted);
   font-size: 12px;
   font-weight: 500;
-  padding: 11px 4px;
+  padding: 0 4px;
   cursor: pointer;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .side-tabs button:hover { color: var(--text-dim); }
 .side-tabs button.active { color: var(--accent-hi); }
