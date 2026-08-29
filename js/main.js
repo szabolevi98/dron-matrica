@@ -620,7 +620,7 @@ function updateWarnings(info, d, cc) {
   if (!d.operatorId) list.push(['err', 'v.empty']);
   else if (d.operatorSecret) list.push(['err', 'v.secret']);
   if (!d.regId && (state.active === 'reg' || state.active === 'miniReg')) list.push(['warn', 'v.noReg']);
-  if (info && Number.isFinite(info.minFont) && info.minFont > 0 && info.minFont < 1.8) list.push(['warn', 'v.tiny']);
+  if (info && Number.isFinite(info.minFont) && info.minFont > 0 && info.minFont < 1.5) list.push(['warn', 'v.tiny']);
   if (cc.level === 'bad') list.push(['warn', 'v.contrast']);
   if (info && info.qr && info.qr.module < 0.34) list.push(['warn', 'v.qrTight']);
   if (!list.length) list.push(['ok', 'v.ready']);

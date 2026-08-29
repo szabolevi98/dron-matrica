@@ -58,7 +58,7 @@ const DICT = {
     'v.noReg': 'Nincs megadva lajstromszám',
     'v.overflow': 'A szöveg nem fér ki, nagyobb matrica vagy kevesebb elem kell',
     'v.contrast': 'Gyenge kontraszt, a jelölés nehezen olvasható',
-    'v.tiny': 'A szöveg 1,8 mm alá csökkent, nehezen olvasható lesz nyomtatásban',
+    'v.tiny': 'A szöveg 1,5 mm alá csökkent, nyomtatásban nehezen lesz olvasható',
     'v.qrTight': 'A QR modulmérete kicsi, növeld a QR méretét vagy a matricát',
     'v.ready': 'Nyomtatásra kész',
 
@@ -196,7 +196,7 @@ const DICT = {
 
     'face.operator': 'ÜZEMBENTARTÓ',
     'face.reg': 'LAJSTROMSZÁM',
-    'face.contact': 'HA MEGTALÁLTAD, KÉRLEK HÍVJ',
+    'face.contact': 'HA MEGTALÁLTAD, HÍVJ',
     'face.battery': 'AKKUMULÁTOR',
     'face.tel': 'TEL',
     'face.mail': 'E-MAIL',
@@ -266,7 +266,7 @@ const DICT = {
     'v.noReg': 'No registration number entered',
     'v.overflow': 'Text does not fit, use a larger label or fewer elements',
     'v.contrast': 'Poor contrast, the marking is hard to read',
-    'v.tiny': 'Text dropped below 1.8 mm, it will be hard to read in print',
+    'v.tiny': 'Text dropped below 1.5 mm, it will be hard to read in print',
     'v.qrTight': 'QR module size is small, increase QR or label size',
     'v.ready': 'Ready to print',
 
@@ -404,7 +404,7 @@ const DICT = {
 
     'face.operator': 'UAS OPERATOR',
     'face.reg': 'REGISTRATION',
-    'face.contact': 'IF FOUND, PLEASE CALL',
+    'face.contact': 'IF FOUND, CALL ME',
     'face.battery': 'BATTERY',
     'face.tel': 'TEL',
     'face.mail': 'MAIL',
