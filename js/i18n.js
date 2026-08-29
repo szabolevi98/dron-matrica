@@ -90,6 +90,7 @@ const DICT = {
     'd.scale': 'Kitöltés',
     'd.tracking': 'Betűköz',
     'd.align': 'Igazítás',
+    'd.regCaption': 'Lajstromszám felirata',
     'd.upper': 'Nagybetűs feliratok',
     'd.mono': 'Azonosítók monospace betűvel',
     'd.mono.hint': 'Az azonosítók, a telefonszám és a sorozatszám mindig monospace betűt kapnak, a 0/O és 1/l így nem téveszthető össze. Kapcsold ki, ha a választott betűtípust mindenhol szeretnéd.',
@@ -198,6 +199,7 @@ const DICT = {
 
     'face.operator': 'ÜZEMBENTARTÓ',
     'face.reg': 'LAJSTROMSZÁM',
+    'face.regAlt': 'AZONOSÍTÓSZÁM',
     'face.contact': 'HA MEGTALÁLTAD, HÍVJ',
     'face.battery': 'AKKUMULÁTOR',
     'face.tel': 'TEL',
@@ -300,6 +302,7 @@ const DICT = {
     'd.scale': 'Fill',
     'd.tracking': 'Letter spacing',
     'd.align': 'Alignment',
+    'd.regCaption': 'Registration caption',
     'd.upper': 'Uppercase captions',
     'd.mono': 'Monospace identifiers',
     'd.mono.hint': 'Identifiers, phone numbers and serials always use a monospace face, so 0/O and 1/l cannot be confused. Turn it off to apply the selected typeface everywhere.',
@@ -408,6 +411,7 @@ const DICT = {
 
     'face.operator': 'UAS OPERATOR',
     'face.reg': 'REGISTRATION',
+    'face.regAlt': 'ID NUMBER',
     'face.contact': 'IF FOUND, CALL ME',
     'face.battery': 'BATTERY',
     'face.tel': 'TEL',
