@@ -545,9 +545,25 @@ body {
   text-align: center;
   color: var(--muted);
   font-size: 11.5px;
-  padding: 14px 0;
+  padding: 14px 10px;
   border: 1px dashed var(--line);
   border-radius: 8px;
+}
+
+.basket.flash:empty::after { animation: basketPulse 2s ease-out; }
+
+@keyframes basketPulse {
+  0%, 55% {
+    border-color: var(--danger);
+    border-style: solid;
+    background: rgba(239, 95, 95, .12);
+    color: #f0a8a8;
+  }
+  100% {
+    border-color: var(--line);
+    background: transparent;
+    color: var(--muted);
+  }
 }
 .basket-item {
   display: flex;

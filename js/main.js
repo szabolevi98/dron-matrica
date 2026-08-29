@@ -69,7 +69,7 @@ function defaultState(demo) {
     print: {
       paper: 'A4', orientation: 'portrait', margin: 8, gap: 3,
       cut: true, outline: false, mirror: false,
-      basket: [{ typeId: 'operator', count: 4 }, { typeId: 'reg', count: 4 }]
+      basket: []
     },
     zoom: 340
   };
@@ -784,11 +784,33 @@ function svgCache() {
   };
 }
 
+function openPane(paneId) {
+  $('sideTabs').querySelectorAll('button').forEach(b => {
+    b.classList.toggle('active', b.dataset.pane === paneId);
+  });
+  document.querySelectorAll('.pane').forEach(p => {
+    p.classList.toggle('active', p.id === paneId);
+  });
+}
+
+function flashBasket() {
+  const box = $('basket');
+  box.classList.remove('flash');
+  void box.offsetWidth;
+  box.classList.add('flash');
+  box.scrollIntoView({ block: 'center', behavior: 'smooth' });
+}
+
 function doPrint() {
   const items = state.print.basket
     .filter(b => b.count > 0)
     .map(b => ({ typeId: b.typeId, count: b.count, w: state.types[b.typeId].w, h: state.types[b.typeId].h }));
-  if (!items.length) { toast(t('toast.basketEmpty'), 'bad'); return; }
+  if (!items.length) {
+    openPane('pane-print');
+    flashBasket();
+    toast(t('toast.basketEmpty'), 'bad');
+    return;
+  }
   const packed = packSheets(items, state.print);
   setPageSize(state.print.paper, state.print.orientation);
   buildPrintDom($('printRoot'), packed, state.print, svgCache());
@@ -912,9 +934,7 @@ function wire() {
 
   $('sideTabs').addEventListener('click', e => {
     const b = e.target.closest('button');
-    if (!b) return;
-    $('sideTabs').querySelectorAll('button').forEach(x => x.classList.toggle('active', x === b));
-    document.querySelectorAll('.pane').forEach(p => p.classList.toggle('active', p.id === b.dataset.pane));
+    if (b) openPane(b.dataset.pane);
   });
 
   $('langSwitch').addEventListener('click', e => {
