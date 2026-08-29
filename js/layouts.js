@@ -37,13 +37,6 @@ const TYPE_DEFS = {
       ['model', 1], ['spec', 1], ['serial', 0], ['logo', 0]
     ]
   },
-  contact: {
-    w: 55, h: 35, shape: 'round', radius: 14, qr: true,
-    blocks: [
-      ['label.contact', 1], ['owner', 1], ['phone', 1],
-      ['email', 1], ['text', 0], ['url', 0], ['logo', 0]
-    ]
-  },
   mini: {
     required: true,
     w: 26, h: 10, shape: 'round', radius: 18, qr: false,
@@ -53,6 +46,13 @@ const TYPE_DEFS = {
     required: true,
     w: 26, h: 10, shape: 'round', radius: 18, qr: false,
     blocks: [['regId', 1], ['label.reg', 0]]
+  },
+  contact: {
+    w: 55, h: 35, shape: 'round', radius: 14, qr: true,
+    blocks: [
+      ['label.contact', 1], ['owner', 1], ['phone', 1],
+      ['email', 1], ['text', 0], ['url', 0], ['logo', 0]
+    ]
   },
   battery: {
     w: 40, h: 20, shape: 'round', radius: 12, qr: false,

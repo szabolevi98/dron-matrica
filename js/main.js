@@ -326,6 +326,30 @@ function buildBlockList() {
     if (!def) return;
     const row = document.createElement('div');
     row.className = 'block-item' + (b.on ? '' : ' off');
+    row.dataset.blockId = b.id;
+    row.addEventListener('mousedown', e => {
+      row.draggable = !e.target.closest('button, input');
+    });
+    row.addEventListener('dragstart', e => {
+      if (!row.draggable) { e.preventDefault(); return; }
+      row.classList.add('dragging');
+      box.classList.add('dragging-active');
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', b.id);
+    });
+    row.addEventListener('dragend', () => {
+      row.classList.remove('dragging');
+      row.draggable = false;
+      box.classList.remove('dragging-active');
+      const order = [...box.querySelectorAll('.block-item')].map(el => el.dataset.blockId);
+      cfg.blocks.sort((x, y) => order.indexOf(x.id) - order.indexOf(y.id));
+      commit();
+    });
+
+    const grip = document.createElement('span');
+    grip.className = 'bi-grip';
+    grip.innerHTML = '<svg viewBox="0 0 8 14"><circle cx="2" cy="3" r="1.1"/><circle cx="6" cy="3" r="1.1"/><circle cx="2" cy="7" r="1.1"/><circle cx="6" cy="7" r="1.1"/><circle cx="2" cy="11" r="1.1"/><circle cx="6" cy="11" r="1.1"/></svg>';
+    row.appendChild(grip);
 
     const move = document.createElement('div');
     move.className = 'bi-move';
@@ -820,6 +844,19 @@ function wire() {
     state.types[state.active].blocks = defaultBlocks(state.active);
     commit();
   });
+
+  const blockBox = $('blockList');
+  blockBox.addEventListener('dragover', e => {
+    const dragging = blockBox.querySelector('.dragging');
+    if (!dragging) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    const after = [...blockBox.querySelectorAll('.block-item:not(.dragging)')]
+      .find(el => e.clientY < el.getBoundingClientRect().top + el.offsetHeight / 2);
+    if (after) blockBox.insertBefore(dragging, after);
+    else blockBox.appendChild(dragging);
+  });
+  blockBox.addEventListener('drop', e => e.preventDefault());
 
   onInput('d-bg', n => { state.style.bg = n.value; state.style.theme = ''; }, true);
   onInput('d-fg', n => { state.style.fg = n.value; state.style.theme = ''; }, true);

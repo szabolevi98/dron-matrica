@@ -447,8 +447,14 @@ body {
   border-radius: 7px;
 }
 .block-item.off { opacity: .45; }
+.block-item.dragging { opacity: .55; border-color: var(--accent); background: var(--panel-3); }
+.block-list.dragging-active .block-item { transition: none; }
+.block-list.dragging-active .bi-grip { cursor: grabbing; }
+.block-item .bi-grip { flex: 0 0 auto; display: flex; align-items: center; cursor: grab; color: #46586e; }
+.block-item .bi-grip:hover { color: var(--accent-hi); }
+.block-item .bi-grip svg { width: 8px; height: 14px; fill: currentColor; }
 .block-item .bi-name { flex: 1 1 auto; font-size: 12px; color: var(--text-dim); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.block-item .bi-val { font-size: 10.5px; color: var(--muted); font-family: var(--mono); max-width: 96px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.block-item .bi-val { font-size: 10.5px; color: var(--muted); font-family: var(--mono); max-width: 74px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .block-item .bi-move { display: flex; gap: 1px; }
 .block-item .bi-move button {
   width: 19px; height: 19px;
