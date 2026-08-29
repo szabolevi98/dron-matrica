@@ -203,8 +203,8 @@ const DICT = {
 
     'preset.found': 'Ha megtaláltad, kérlek hívj!',
     'preset.reward': 'Megtalálónak jutalom!',
-    'preset.property': 'Magántulajdon, ne nyúlj hozzá',
-    'preset.noFly': 'Engedéllyel üzemel'
+    'preset.thanks': 'Köszönöm, hogy visszajuttatod!',
+    'preset.sms': 'Hívj vagy írj SMS-t'
   },
 
   en: {
@@ -411,8 +411,8 @@ const DICT = {
 
     'preset.found': 'If found, please call!',
     'preset.reward': 'Reward if returned!',
-    'preset.property': 'Private property, do not tamper',
-    'preset.noFly': 'Operated under permit'
+    'preset.thanks': 'Thank you for returning it!',
+    'preset.sms': 'Call or text me'
   }
 };
 

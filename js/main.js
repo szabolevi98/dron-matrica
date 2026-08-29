@@ -263,7 +263,7 @@ function buildSizePresets() {
 function buildTextPresets() {
   const box = $('textPresets');
   box.textContent = '';
-  ['preset.found', 'preset.reward', 'preset.property', 'preset.noFly'].forEach(key => {
+  ['preset.found', 'preset.reward', 'preset.thanks', 'preset.sms'].forEach(key => {
     const c = document.createElement('button');
     c.className = 'chip';
     c.textContent = t(key);
