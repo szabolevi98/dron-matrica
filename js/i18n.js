@@ -44,14 +44,12 @@ const DICT = {
     'f.batDate': 'Üzembe helyezés dátuma',
 
     'notice.secret.t': 'A titkos 3 karakter ne kerüljön matricára',
-    'notice.secret.b': 'A regisztrációs szám végén álló, kötőjeles hármas kód kizárólag a Remote ID rendszerbe való. A generátor automatikusan levágja.',
+    'notice.secret.b': 'A regisztrációs szám végén álló, kötőjeles hármas kód kizárólag a Remote ID rendszerbe való — a matricán ne tüntesd fel.',
 
     'f.operatorId.hint': 'A hatóságtól kapott azonosító — 3 betűs országkód és utána 12 karakter.',
-    'v.sample': 'Mintaadatok — írd át a sajátodra',
     'v.empty': 'Add meg az üzembentartói azonosítót',
     'v.opFormat': 'Szokatlan formátum — a hatósági azonosító 3 betűs országkóddal kezdődik',
     'v.opOk': 'Formátum rendben',
-    'v.secretCut': 'A titkos kód levágva',
     'v.noReg': 'Nincs megadva lajstromszám',
     'v.overflow': 'A szöveg nem fér ki — nagyobb matrica vagy kevesebb elem kell',
     'v.contrast': 'Gyenge kontraszt — a jelölés nehezen olvasható',
@@ -248,14 +246,12 @@ const DICT = {
     'f.batDate': 'In service since',
 
     'notice.secret.t': 'Never put the 3-character secret on a label',
-    'notice.secret.b': 'The hyphenated three-character suffix of your registration number belongs in the Remote ID system only. This generator strips it automatically.',
+    'notice.secret.b': 'The hyphenated three-character suffix of your registration number belongs in the Remote ID system only — keep it off the label.',
 
     'f.operatorId.hint': 'The identifier issued by the authority — a 3-letter country code followed by 12 characters.',
-    'v.sample': 'Sample data — replace it with your own',
     'v.empty': 'Enter your operator registration number',
     'v.opFormat': 'Unusual format — authority IDs start with a 3-letter country code',
     'v.opOk': 'Format looks valid',
-    'v.secretCut': 'Secret code stripped',
     'v.noReg': 'No registration number entered',
     'v.overflow': 'Text does not fit — use a larger label or fewer elements',
     'v.contrast': 'Poor contrast — the marking is hard to read',
