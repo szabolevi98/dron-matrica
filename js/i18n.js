@@ -1,6 +1,10 @@
 const DICT = {
   hu: {
+    'brand.name': 'Drón Matrica Stúdió',
     'brand.sub': 'Nyomdakész azonosító matricák',
+    'doc.title': 'Drón Matrica Stúdió',
+    'doc.desc': 'Nyomdakész drón azonosító matrica generátor: üzembentartói szám, lajstromszám, QR kód, mm-pontos nyomtatás. Minden adat a böngésződben marad.',
+    'aria.profiles': 'Drónjaim',
     'tip.save': 'Aktuális beállítás mentése drónként',
     'tip.delete': 'Mentett drón törlése',
     'tip.undo': 'Visszavonás (Ctrl+Z)',
@@ -204,7 +208,11 @@ const DICT = {
   },
 
   en: {
+    'brand.name': 'Drone Label Studio',
     'brand.sub': 'Print-ready identification labels',
+    'doc.title': 'Drone Label Studio',
+    'doc.desc': 'Print-ready drone identification label generator: operator registration number, aircraft registration, QR code, millimetre-accurate printing. Everything stays in your browser.',
+    'aria.profiles': 'My drones',
     'tip.save': 'Save current setup as a drone',
     'tip.delete': 'Delete saved drone',
     'tip.undo': 'Undo (Ctrl+Z)',
@@ -432,4 +440,12 @@ export function applyI18n(root = document) {
   root.querySelectorAll('[data-i18n-title]').forEach(el => {
     el.title = t(el.dataset.i18nTitle);
   });
+  root.querySelectorAll('[data-i18n-aria]').forEach(el => {
+    el.setAttribute('aria-label', t(el.dataset.i18nAria));
+  });
+  if (root === document) {
+    document.title = t('doc.title');
+    const desc = document.querySelector('meta[name="description"]');
+    if (desc) desc.setAttribute('content', t('doc.desc'));
+  }
 }
