@@ -279,6 +279,8 @@
             <label for="d-font" data-i18n="d.font">Betűtípus</label>
             <select id="d-font" class="form-select"></select>
             <div class="hint" data-i18n="d.font.hint">Csak nyomtatásbiztos, rendszerszinten elérhető betűcsaládok — így a PNG és PDF export pontosan az előnézetet adja vissza.</div>
+            <label class="switch"><input type="checkbox" id="d-mono"><span data-i18n="d.mono">Azonosítók monospace betűvel</span></label>
+            <div class="hint" data-i18n="d.mono.hint">Az azonosítók, a telefonszám és a sorozatszám mindig monospace betűt kapnak — a 0/O és 1/l így nem téveszthető össze. Kapcsold ki, ha a választott betűtípust mindenhol szeretnéd.</div>
           </div>
           <div class="field">
             <label for="d-scale"><span data-i18n="d.scale">Kitöltés</span><output id="d-scale-o" class="mono"></output></label>
@@ -297,7 +299,6 @@
             </div>
           </div>
           <label class="switch"><input type="checkbox" id="d-upper"><span data-i18n="d.upper">Nagybetűs feliratok</span></label>
-          <label class="switch"><input type="checkbox" id="d-mono"><span data-i18n="d.mono">Azonosítók monospace betűvel</span></label>
           <label class="switch"><input type="checkbox" id="d-bilingual"><span data-i18n="d.bilingual">Kétnyelvű feliratok (HU / EN)</span></label>
         </div>
 
