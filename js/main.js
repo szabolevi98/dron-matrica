@@ -665,8 +665,9 @@ function applyZoom() {
 function fitZoom() {
   const cfg = state.types[state.active];
   const box = $('stageCanvas');
-  const availW = box.clientWidth - 100;
-  const availH = box.clientHeight - 130;
+  const narrow = window.innerWidth < 820;
+  const availW = box.clientWidth - (narrow ? 34 : 100);
+  const availH = box.clientHeight - (narrow ? 60 : 130);
   const z = Math.min(availW / (cfg.w * MM_PX), availH / (cfg.h * MM_PX)) * 100;
   state.zoom = Math.max(60, Math.min(480, Math.round(z / 10) * 10));
   $('zoom').value = state.zoom;
