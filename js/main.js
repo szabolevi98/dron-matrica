@@ -68,7 +68,7 @@ function defaultState(demo) {
     media: { logo: null, logoScale: 60, bg: null, bgOpacity: 22 },
     print: {
       paper: 'A4', orientation: 'portrait', margin: 8, gap: 3,
-      cut: true, outline: false, mirror: false,
+      cut: false, outline: false, mirror: false,
       basket: []
     },
     zoom: 340
