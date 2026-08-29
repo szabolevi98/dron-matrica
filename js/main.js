@@ -19,7 +19,7 @@ const MM_PX = 96 / 25.4;
 
 const SAMPLE = {
   operatorId: 'HUN87astt6ah1kj',
-  regId: 'HA-DR1234',
+  regId: 'HA00ABC-UAS',
   owner: 'Kovács János',
   phone: '30 123 4567',
   email: 'pilota@example.hu',
@@ -582,7 +582,7 @@ function updateWarnings(info, d, cc) {
   const list = [];
 
   if (!d.operatorId) list.push(['err', 'v.empty']);
-  else if (d.operatorState === 'odd') list.push(['warn', 'v.opFormat']);
+  else if (d.operatorSecret) list.push(['err', 'v.secret']);
   if (!d.regId && (state.active === 'reg' || state.active === 'miniReg')) list.push(['warn', 'v.noReg']);
   if (info && Number.isFinite(info.minFont) && info.minFont > 0 && info.minFont < 1.8) list.push(['warn', 'v.tiny']);
   if (cc.level === 'bad') list.push(['warn', 'v.contrast']);
@@ -592,11 +592,10 @@ function updateWarnings(info, d, cc) {
   list.slice(0, 4).forEach(([k, key]) => box.appendChild(pill(k, key)));
 
   const field = $('f-operatorId');
-  field.classList.toggle('is-bad', !!d.operatorId && d.operatorState === 'odd');
-  field.classList.toggle('is-good', d.operatorState === 'ok');
-  $('hint-operatorId').textContent = !d.operatorId
-    ? t('f.operatorId.hint')
-    : d.operatorState === 'ok' ? t('v.opOk') : t('v.opFormat');
+  field.classList.toggle('is-bad', !!d.operatorSecret);
+  $('hint-operatorId').textContent = d.operatorSecret
+    ? t('f.operatorId.secret')
+    : t('f.operatorId.hint');
 }
 
 function updateQrInfo(info) {

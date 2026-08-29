@@ -1,9 +1,8 @@
 export function parseOperatorId(raw) {
-  const clean = String(raw || '').replace(/\s+/g, '');
-  if (!clean) return { value: '', state: 'empty' };
-  const value = clean.slice(0, 3).toUpperCase() + clean.slice(3);
-  const state = /^[A-Z]{3}[A-Za-z0-9]{8,16}(-[A-Za-z0-9]{1,4})?$/.test(value) ? 'ok' : 'odd';
-  return { value, state };
+  const value = String(raw || '').trim();
+  if (!value) return { value: '', secret: '' };
+  const match = value.match(/-([A-Za-z0-9]{1,6})$/);
+  return { value, secret: match ? match[1] : '' };
 }
 
 export function formatPhone(dial, phone) {
@@ -33,7 +32,7 @@ export function derive(data, lang) {
   const spec = [data.mtom, data.cls].filter(Boolean).join(' · ');
   return {
     operatorId: op.value,
-    operatorState: op.state,
+    operatorSecret: op.secret,
     regId: String(data.regId || '').trim(),
     owner: String(data.owner || '').trim(),
     phone: formatPhone(data.dial, data.phone),
