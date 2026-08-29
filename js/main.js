@@ -215,19 +215,30 @@ function buildTypeList() {
 
     item.addEventListener('click', () => {
       state.active = id;
+      cfg.on = true;
       commit();
     });
     box.appendChild(item);
   });
 }
 
+function enabledTypes() {
+  return TYPE_IDS.filter(id => state.types[id].on);
+}
+
+function normalizeEnabled() {
+  if (!enabledTypes().length) state.types[state.active].on = true;
+  if (!state.types[state.active].on) state.active = enabledTypes()[0];
+  state.print.basket = state.print.basket.filter(b => state.types[b.typeId].on);
+}
+
 function buildStageTabs() {
   const box = $('stageTabs');
   box.textContent = '';
-  TYPE_IDS.forEach(id => {
+  enabledTypes().forEach(id => {
     const b = document.createElement('button');
     b.textContent = typeName(id);
-    b.className = (state.active === id ? 'active' : '') + (state.types[id].on ? '' : ' off');
+    b.className = state.active === id ? 'active' : '';
     b.addEventListener('click', () => { state.active = id; commit(); });
     box.appendChild(b);
   });
@@ -413,14 +424,15 @@ function buildBasket() {
 
   const sel = $('basketType');
   const prev = sel.value;
+  const options = enabledTypes();
   sel.textContent = '';
-  TYPE_IDS.forEach(id => {
+  options.forEach(id => {
     const o = document.createElement('option');
     o.value = id;
     o.textContent = typeName(id);
     sel.appendChild(o);
   });
-  sel.value = TYPE_IDS.includes(prev) ? prev : state.active;
+  sel.value = options.includes(prev) ? prev : state.active;
 
   const total = state.print.basket.reduce((s, b) => s + b.count, 0);
   const packed = packSheets(
@@ -661,6 +673,7 @@ function renderPreview() {
 }
 
 function syncAll() {
+  normalizeEnabled();
   setLang(state.lang);
   applyI18n();
   $('langSwitch').querySelectorAll('button').forEach(b => b.classList.toggle('active', b.dataset.lang === state.lang));

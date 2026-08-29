@@ -594,7 +594,6 @@ body {
 }
 .stage-tabs button:hover { color: var(--text-dim); background: var(--panel-2); }
 .stage-tabs button.active { background: var(--panel-3); border-color: var(--line); color: var(--text); }
-.stage-tabs button.off { opacity: .4; }
 
 .stage-tools { display: flex; align-items: center; gap: 10px; }
 .zoom { display: flex; align-items: center; gap: 6px; }
