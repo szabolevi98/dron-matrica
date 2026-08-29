@@ -44,7 +44,7 @@ const DICT = {
     'f.batDate': 'Üzembe helyezés dátuma',
 
     'notice.secret.t': 'A titkos 3 karakter ne kerüljön matricára',
-    'notice.secret.b': 'A regisztrációs szám végén álló, kötőjeles hármas kód kizárólag a Remote ID rendszerbe való — a matricán ne tüntesd fel.',
+    'notice.secret.b': 'Ha a regisztrációs számod végén kötőjellel egy hármas kód is szerepel, azt ne írd a matricára — az titkos. Sokan külön kapják meg, így az ő számukban nincs is benne.',
 
     'f.operatorId.hint': 'A hatóságtól kapott azonosító — 3 betűs országkód és utána 12 karakter.',
     'v.empty': 'Add meg az üzembentartói azonosítót',
@@ -246,7 +246,7 @@ const DICT = {
     'f.batDate': 'In service since',
 
     'notice.secret.t': 'Never put the 3-character secret on a label',
-    'notice.secret.b': 'The hyphenated three-character suffix of your registration number belongs in the Remote ID system only — keep it off the label.',
+    'notice.secret.b': 'If your registration number ends with a hyphen and three characters, keep that off the label — it is a secret code. Many people receive it separately, so their number does not contain it at all.',
 
     'f.operatorId.hint': 'The identifier issued by the authority — a 3-letter country code followed by 12 characters.',
     'v.empty': 'Enter your operator registration number',
