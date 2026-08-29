@@ -37,6 +37,16 @@ const TYPE_DEFS = {
       ['model', 1], ['spec', 1], ['serial', 0], ['logo', 0]
     ]
   },
+  mixed: {
+    required: true,
+    w: 55, h: 35, shape: 'round', radius: 14, qr: false,
+    blocks: [
+      ['label.operator', 1], ['operatorId', 1], ['rule', 1],
+      ['label.reg', 1], ['regId', 1],
+      ['owner', 0], ['phone', 0], ['model', 0], ['spec', 0],
+      ['serial', 0], ['text', 0], ['logo', 0]
+    ]
+  },
   mini: {
     required: true,
     w: 26, h: 10, shape: 'round', radius: 18, qr: false,
