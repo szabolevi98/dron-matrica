@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="hu" data-bs-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drón Matrica Stúdió</title>
+<meta name="description" content="Nyomdakész drón azonosító matrica generátor — üzembentartói szám, lajstromszám, QR kód, mm-pontos nyomtatás. Minden adat a böngésződben marad.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <svg viewBox="0 0 24 24" class="brand-mark" aria-hidden="true">
+      <path d="M3.2 3.2h4.4v1.7H6.1l2.4 2.4-1.2 1.2-2.4-2.4v1.5H3.2V3.2zm17.6 0v4.4h-1.7V6.1l-2.4 2.4-1.2-1.2 2.4-2.4h-1.5V3.2h4.4zM3.2 20.8v-4.4h1.7v1.5l2.4-2.4 1.2 1.2-2.4 2.4h1.5v1.7H3.2zm17.6 0h-4.4v-1.7h1.5l-2.4-2.4 1.2-1.2 2.4 2.4v-1.5h1.7v4.4z"/>
+      <rect x="8.4" y="8.4" width="7.2" height="7.2" rx="1.6"/>
+    </svg>
+    <div class="brand-text">
+      <strong>Drón Matrica Stúdió</strong>
+      <span data-i18n="brand.sub">Nyomdakész azonosító matricák</span>
+    </div>
+  </div>
+
+  <div class="topbar-actions">
+    <div class="profile-box">
+      <select id="profileSelect" class="form-select form-select-sm" aria-label="Drónjaim"></select>
+      <button class="btn btn-icon" id="profileSave" data-i18n-title="tip.save" title="Mentés">
+        <svg viewBox="0 0 16 16"><path d="M2 2h9.2L14 4.8V14H2V2zm2.2 1.8v3h5.6v-3H4.2zm-.4 5.4V13h8.4V9.2H3.8z"/></svg>
+      </button>
+      <button class="btn btn-icon" id="profileDelete" data-i18n-title="tip.delete" title="Törlés">
+        <svg viewBox="0 0 16 16"><path d="M6.2 1.6h3.6l.7 1.2H14v1.7H2V2.8h3.5l.7-1.2zM3.4 5.6h9.2L11.9 14.4H4.1L3.4 5.6z"/></svg>
+      </button>
+    </div>
+
+    <div class="btn-divider"></div>
+
+    <button class="btn btn-icon" id="undoBtn" data-i18n-title="tip.undo" title="Visszavonás">
+      <svg viewBox="0 0 16 16"><path d="M6.8 2.6 2 6.4l4.8 3.8V7.7h2.6a2.6 2.6 0 0 1 0 5.2H5.9v1.9h3.5a4.5 4.5 0 0 0 0-9H6.8V2.6z"/></svg>
+    </button>
+    <button class="btn btn-icon" id="redoBtn" data-i18n-title="tip.redo" title="Újra">
+      <svg viewBox="0 0 16 16"><path d="M9.2 2.6 14 6.4l-4.8 3.8V7.7H6.6a2.6 2.6 0 0 0 0 5.2h3.5v1.9H6.6a4.5 4.5 0 0 1 0-9h2.6V2.6z"/></svg>
+    </button>
+
+    <div class="btn-divider"></div>
+
+    <div class="dropdown">
+      <button class="btn btn-ghost dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-i18n="btn.export">Export</button>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li><h6 class="dropdown-header" data-i18n="export.image">Kép</h6></li>
+        <li><a class="dropdown-item" href="#" data-export="png" data-dpi="300">PNG · 300 DPI</a></li>
+        <li><a class="dropdown-item" href="#" data-export="png" data-dpi="600">PNG · 600 DPI</a></li>
+        <li><a class="dropdown-item" href="#" data-export="png" data-dpi="1200">PNG · 1200 DPI</a></li>
+        <li><a class="dropdown-item" href="#" data-export="svg">SVG <span class="tag-vec" data-i18n="tag.vector">vektor</span></a></li>
+        <li><a class="dropdown-item" href="#" data-export="pdf">PDF</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><h6 class="dropdown-header" data-i18n="export.config">Beállítások</h6></li>
+        <li><a class="dropdown-item" href="#" data-export="json" data-i18n="export.json">Konfiguráció mentése</a></li>
+        <li><a class="dropdown-item" href="#" data-export="import" data-i18n="export.import">Konfiguráció betöltése</a></li>
+        <li><a class="dropdown-item" href="#" data-export="link" data-i18n="export.link">Megosztható link másolása</a></li>
+      </ul>
+    </div>
+
+    <button class="btn btn-accent" id="printBtn">
+      <svg viewBox="0 0 16 16"><path d="M4.2 1.4h7.6v3.2H4.2V1.4zM2 5.6h12a1 1 0 0 1 1 1v4.8h-3.2v3.2H4.2v-3.2H1v-4.8a1 1 0 0 1 1-1zm3.9 5.3v2.6h4.2v-2.6H5.9z"/></svg>
+      <span data-i18n="btn.print">Nyomtatás</span>
+    </button>
+
+    <div class="lang-switch" id="langSwitch">
+      <button data-lang="hu" class="active">HU</button>
+      <button data-lang="en">EN</button>
+    </div>
+  </div>
+</header>
+
+<main class="workspace">
+
+  <aside class="sidebar">
+    <nav class="side-tabs" id="sideTabs">
+      <button class="active" data-pane="pane-data" data-i18n="tab.data">Adatok</button>
+      <button data-pane="pane-stickers" data-i18n="tab.stickers">Matricák</button>
+      <button data-pane="pane-design" data-i18n="tab.design">Design</button>
+      <button data-pane="pane-print" data-i18n="tab.print">Nyomtatás</button>
+    </nav>
+
+    <div class="side-body">
+
+      <section class="pane active" id="pane-data">
+        <div class="group">
+          <div class="group-head"><h3 data-i18n="data.required">Kötelező azonosítók</h3></div>
+          <div class="field">
+            <label for="f-operatorId" data-i18n="f.operatorId">Üzembentartói regisztrációs szám</label>
+            <input type="text" id="f-operatorId" class="form-control mono" placeholder="HUN0123456789abc" autocomplete="off" spellcheck="false">
+            <div class="hint" id="hint-operatorId"></div>
+          </div>
+          <div class="field">
+            <label for="f-regId" data-i18n="f.regId">Drón lajstromszám / egyedi azonosító</label>
+            <input type="text" id="f-regId" class="form-control mono" placeholder="HA-DR1234" autocomplete="off" spellcheck="false">
+          </div>
+          <div class="notice notice-warn">
+            <svg viewBox="0 0 16 16"><path d="M8 1.2 15.2 14H.8L8 1.2zm-.9 4.4v4.2h1.8V5.6H7.1zm0 5.4v1.8h1.8v-1.8H7.1z"/></svg>
+            <div>
+              <strong data-i18n="notice.secret.t">A titkos 3 karakter ne kerüljön matricára</strong>
+              <p data-i18n="notice.secret.b">A regisztrációs szám végén álló, kötőjeles hármas kód kizárólag a Remote ID rendszerbe való. A generátor automatikusan levágja.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-head"><h3 data-i18n="data.contact">Kapcsolattartás</h3></div>
+          <div class="field">
+            <label for="f-owner" data-i18n="f.owner">Üzembentartó neve</label>
+            <input type="text" id="f-owner" class="form-control" placeholder="Kovács János" autocomplete="off">
+          </div>
+          <div class="field-row">
+            <div class="field field-narrow">
+              <label for="f-dial" data-i18n="f.dial">Előhívó</label>
+              <select id="f-dial" class="form-select">
+                <option value="+36">+36</option>
+                <option value="+43">+43</option>
+                <option value="+421">+421</option>
+                <option value="+40">+40</option>
+                <option value="+385">+385</option>
+                <option value="+386">+386</option>
+                <option value="+381">+381</option>
+                <option value="+380">+380</option>
+                <option value="+49">+49</option>
+                <option value="">—</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-phone"><span data-i18n="f.phone">Telefonszám</span><span class="opt" data-i18n="opt">opcionális</span></label>
+              <input type="tel" id="f-phone" class="form-control mono" placeholder="30 123 4567" autocomplete="off">
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-email"><span data-i18n="f.email">E-mail</span><span class="opt" data-i18n="opt">opcionális</span></label>
+            <input type="email" id="f-email" class="form-control" placeholder="pilota@example.hu" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="f-text"><span data-i18n="f.text">Egyedi felirat</span><span class="opt" data-i18n="opt">opcionális</span></label>
+            <input type="text" id="f-text" class="form-control" placeholder="Ha megtaláltad, kérlek hívj!" autocomplete="off">
+            <div class="chips" id="textPresets"></div>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-head"><h3 data-i18n="data.aircraft">Eszköz adatai</h3></div>
+          <div class="field-row">
+            <div class="field">
+              <label for="f-model" data-i18n="f.model">Típus</label>
+              <input type="text" id="f-model" class="form-control" placeholder="DJI Mini 4 Pro" autocomplete="off">
+            </div>
+            <div class="field">
+              <label for="f-serial" data-i18n="f.serial">Sorozatszám</label>
+              <input type="text" id="f-serial" class="form-control mono" placeholder="1581F5F..." autocomplete="off">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="f-mtom" data-i18n="f.mtom">Felszálló tömeg</label>
+              <input type="text" id="f-mtom" class="form-control mono" placeholder="249 g" autocomplete="off">
+            </div>
+            <div class="field field-narrow">
+              <label for="f-class" data-i18n="f.class">Osztály</label>
+              <select id="f-class" class="form-select">
+                <option value="">—</option>
+                <option>C0</option><option>C1</option><option>C2</option>
+                <option>C3</option><option>C4</option><option>C5</option><option>C6</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-url"><span data-i18n="f.url">Weboldal vagy visszajuttatási link</span><span class="opt" data-i18n="opt">opcionális</span></label>
+            <input type="url" id="f-url" class="form-control" placeholder="https://" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-head"><h3 data-i18n="data.battery">Akkumulátor címke</h3></div>
+          <div class="field-row">
+            <div class="field">
+              <label for="f-batNo" data-i18n="f.batNo">Akku sorszáma</label>
+              <input type="text" id="f-batNo" class="form-control mono" placeholder="01" autocomplete="off">
+            </div>
+            <div class="field">
+              <label for="f-batCap" data-i18n="f.batCap">Kapacitás</label>
+              <input type="text" id="f-batCap" class="form-control mono" placeholder="2590 mAh" autocomplete="off">
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-batDate" data-i18n="f.batDate">Üzembe helyezés dátuma</label>
+            <input type="date" id="f-batDate" class="form-control">
+          </div>
+        </div>
+      </section>
+
+      <section class="pane" id="pane-stickers">
+        <div class="group">
+          <div class="group-head">
+            <h3 data-i18n="st.types">Matrica típusok</h3>
+            <span class="group-note" data-i18n="st.types.note">Kattints a szerkesztéshez</span>
+          </div>
+          <div class="type-list" id="typeList"></div>
+        </div>
+
+        <div class="group">
+          <div class="group-head"><h3><span data-i18n="st.size">Méret</span> · <span class="accent-text" id="activeTypeName"></span></h3></div>
+          <div class="field">
+            <label data-i18n="st.preset">Gyakori méretek</label>
+            <div class="chips" id="sizePresets"></div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="s-w" data-i18n="st.width">Szélesség (mm)</label>
+              <input type="number" id="s-w" class="form-control mono" min="8" max="200" step="0.5">
+            </div>
+            <div class="field">
+              <label for="s-h" data-i18n="st.height">Magasság (mm)</label>
+              <input type="number" id="s-h" class="form-control mono" min="5" max="200" step="0.5">
+            </div>
+            <button class="btn btn-icon btn-tail" id="swapDims" data-i18n-title="tip.swap" title="Forgatás">
+              <svg viewBox="0 0 16 16"><path d="M10.8 1.2 15 4.6l-4.2 3.4V6H4.4V3.2h6.4V1.2zM5.2 8v2h6.4v2.8H5.2v2L1 11.4 5.2 8z"/></svg>
+            </button>
+          </div>
+          <div class="field">
+            <label for="s-radius"><span data-i18n="st.radius">Sarok lekerekítés</span><output id="s-radius-o" class="mono"></output></label>
+            <input type="range" id="s-radius" class="form-range" min="0" max="50" step="1">
+          </div>
+          <div class="field">
+            <label data-i18n="st.shape">Alak</label>
+            <div class="segmented" id="shapeSeg">
+              <button data-shape="rect" data-i18n="shape.rect">Téglalap</button>
+              <button data-shape="round" data-i18n="shape.round">Lekerekített</button>
+              <button data-shape="ellipse" data-i18n="shape.ellipse">Ellipszis</button>
+              <button data-shape="circle" data-i18n="shape.circle">Kör</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-head">
+            <h3 data-i18n="st.blocks">Tartalmi elemek</h3>
+            <span class="group-note" data-i18n="st.blocks.note">Sorrend és láthatóság</span>
+          </div>
+          <div class="block-list" id="blockList"></div>
+          <button class="btn btn-ghost btn-sm w-100" id="resetBlocks" data-i18n="st.blocks.reset">Alapértelmezett elrendezés visszaállítása</button>
+        </div>
+      </section>
+
+      <section class="pane" id="pane-design">
+        <div class="group">
+          <div class="group-head"><h3 data-i18n="d.theme">Színséma</h3></div>
+          <div class="theme-grid" id="themeGrid"></div>
+          <div class="field-row field-colors">
+            <div class="field">
+              <label for="d-bg" data-i18n="d.bg">Háttér</label>
+              <input type="color" id="d-bg" class="form-control form-control-color">
+            </div>
+            <div class="field">
+              <label for="d-fg" data-i18n="d.fg">Szöveg</label>
+              <input type="color" id="d-fg" class="form-control form-control-color">
+            </div>
+            <div class="field">
+              <label for="d-accent" data-i18n="d.accent">Kiemelés</label>
+              <input type="color" id="d-accent" class="form-control form-control-color">
+            </div>
+          </div>
+          <div class="contrast-bar" id="contrastBar"></div>
+        </div>
+
+        <div class="group">
+          <div class="group-head"><h3 data-i18n="d.type">Tipográfia</h3></div>
+          <div class="field">
+            <label for="d-font" data-i18n="d.font">Betűtípus</label>
+            <select id="d-font" class="form-select"></select>
+            <div class="hint" data-i18n="d.font.hint">Csak nyomtatásbiztos, rendszerszinten elérhető betűcsaládok — így a PNG és PDF export pontosan az előnézetet adja vissza.</div>
+          </div>
+          <div class="field">
+            <label for="d-scale"><span data-i18n="d.scale">Kitöltés</span><output id="d-scale-o" class="mono"></output></label>
+            <input type="range" id="d-scale" class="form-range" min="55" max="100" step="1">
+          </div>
+          <div class="field">
+            <label for="d-tracking"><span data-i18n="d.tracking">Betűköz</span><output id="d-tracking-o" class="mono"></output></label>
+            <input type="range" id="d-tracking" class="form-range" min="-3" max="15" step="1">
+          </div>
+          <div class="field">
+            <label data-i18n="d.align">Igazítás</label>
+            <div class="segmented" id="alignSeg">
+              <button data-align="start" data-i18n="align.left">Balra</button>
+              <button data-align="middle" data-i18n="align.center">Középre</button>
+              <button data-align="end" data-i18n="align.right">Jobbra</button>
+            </div>
+          </div>
+          <label class="switch"><input type="checkbox" id="d-upper"><span data-i18n="d.upper">Nagybetűs feliratok</span></label>
+          <label class="switch"><input type="checkbox" id="d-mono"><span data-i18n="d.mono">Azonosítók monospace betűvel</span></label>
+          <label class="switch"><input type="checkbox" id="d-bilingual"><span data-i18n="d.bilingual">Kétnyelvű feliratok (HU / EN)</span></label>
+        </div>
+
+        <div class="group">
+          <div class="group-head"><h3 data-i18n="d.frame">Keret és margó</h3></div>
+          <div class="field">
+            <label for="d-border"><span data-i18n="d.border">Keret vastagsága</span><output id="d-border-o" class="mono"></output></label>
+            <input type="range" id="d-border" class="form-range" min="0" max="1.6" step="0.05">
+          </div>
+          <div class="field">
+            <label for="d-padding"><span data-i18n="d.padding">Belső margó</span><output id="d-padding-o" class="mono"></output></label>
+            <input type="range" id="d-padding" class="form-range" min="0.4" max="6" step="0.1">
+          </div>
+          <div class="field">
+            <label for="d-borderColor" data-i18n="d.borderColor">Keret színe</label>
+            <input type="color" id="d-borderColor" class="form-control form-control-color">
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-head">
+            <h3 data-i18n="d.qr">QR kód</h3>
+            <label class="switch switch-bare"><input type="checkbox" id="q-enabled"><span></span></label>
+          </div>
+          <div class="sub" id="qrSub">
+            <div class="field">
+              <label for="q-mode" data-i18n="q.mode">Tartalom</label>
+              <select id="q-mode" class="form-select">
+                <option value="vcard" data-i18n="q.vcard">Névjegy (vCard)</option>
+                <option value="tel" data-i18n="q.tel">Hívható telefonszám</option>
+                <option value="url" data-i18n="q.url">Weboldal / link</option>
+                <option value="ids" data-i18n="q.ids">Azonosítók</option>
+                <option value="custom" data-i18n="q.custom">Egyedi szöveg</option>
+              </select>
+            </div>
+            <div class="field" id="qrCustomWrap">
+              <label for="q-text" data-i18n="q.text">QR tartalom</label>
+              <textarea id="q-text" class="form-control mono" rows="2"></textarea>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="q-ecl" data-i18n="q.ecl">Hibajavítás</label>
+                <select id="q-ecl" class="form-select">
+                  <option value="L">L · 7%</option>
+                  <option value="M">M · 15%</option>
+                  <option value="Q">Q · 25%</option>
+                  <option value="H">H · 30%</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="q-pos" data-i18n="q.pos">Elhelyezés</label>
+                <select id="q-pos" class="form-select">
+                  <option value="right" data-i18n="pos.right">Jobb oldalon</option>
+                  <option value="left" data-i18n="pos.left">Bal oldalon</option>
+                  <option value="only" data-i18n="pos.only">Csak QR</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="q-scale"><span data-i18n="q.size">QR méret</span><output id="q-scale-o" class="mono"></output></label>
+              <input type="range" id="q-scale" class="form-range" min="18" max="62" step="1">
+            </div>
+            <div class="hint" id="qrInfo"></div>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-head"><h3 data-i18n="d.media">Logó és háttérkép</h3></div>
+          <div class="field">
+            <label data-i18n="m.logo">Logó</label>
+            <div class="dropzone" id="logoDrop">
+              <input type="file" id="m-logo" accept="image/png,image/jpeg,image/svg+xml,image/webp" hidden>
+              <div class="dz-empty">
+                <svg viewBox="0 0 16 16"><path d="M8 1.6 12.2 6H9.4v4.4H6.6V6H3.8L8 1.6zM2.6 12h10.8v2.4H2.6V12z"/></svg>
+                <span data-i18n="m.drop">Húzd ide, vagy kattints</span>
+              </div>
+              <img id="logoThumb" alt="" hidden>
+            </div>
+            <div class="dz-actions" id="logoActions" hidden>
+              <input type="range" id="m-logoScale" class="form-range" min="10" max="100" step="1">
+              <button class="btn btn-ghost btn-sm" id="logoClear" data-i18n="m.clear">Törlés</button>
+            </div>
+          </div>
+          <div class="field">
+            <label data-i18n="m.bg">Egyedi háttérkép</label>
+            <div class="dropzone" id="bgDrop">
+              <input type="file" id="m-bg" accept="image/png,image/jpeg,image/webp" hidden>
+              <div class="dz-empty">
+                <svg viewBox="0 0 16 16"><path d="M2 2.8h12v10.4H2V2.8zm1.6 8.8h8.8L9.5 7.4 7.6 9.9 6.2 8.4l-2.6 3.2zm1.8-5.2a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2z"/></svg>
+                <span data-i18n="m.drop">Húzd ide, vagy kattints</span>
+              </div>
+              <img id="bgThumb" alt="" hidden>
+            </div>
+            <div class="dz-actions" id="bgActions" hidden>
+              <input type="range" id="m-bgOpacity" class="form-range" min="2" max="100" step="1">
+              <button class="btn btn-ghost btn-sm" id="bgClear" data-i18n="m.clear">Törlés</button>
+            </div>
+            <div class="notice notice-info">
+              <svg viewBox="0 0 16 16"><path d="M8 1.2a6.8 6.8 0 1 1 0 13.6A6.8 6.8 0 0 1 8 1.2zm-.9 5.2v5.2h1.8V6.4H7.1zm0-2.6v1.8h1.8V3.8H7.1z"/></svg>
+              <div><p data-i18n="m.bg.warn">A jelölésnek jól olvashatónak kell maradnia. A kontraszt-mérő szól, ha a háttérkép elrontja az olvashatóságot.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="pane" id="pane-print">
+        <div class="group">
+          <div class="group-head"><h3 data-i18n="p.sheet">Nyomtatási ív</h3></div>
+          <div class="field-row">
+            <div class="field">
+              <label for="p-paper" data-i18n="p.paper">Papír</label>
+              <select id="p-paper" class="form-select">
+                <option value="A4">A4 · 210 × 297</option>
+                <option value="A5">A5 · 148 × 210</option>
+                <option value="A6">A6 · 105 × 148</option>
+                <option value="Letter">Letter · 216 × 279</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="p-orient" data-i18n="p.orient">Tájolás</label>
+              <select id="p-orient" class="form-select">
+                <option value="portrait" data-i18n="p.portrait">Álló</option>
+                <option value="landscape" data-i18n="p.landscape">Fekvő</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="p-margin" data-i18n="p.margin">Ív margó (mm)</label>
+              <input type="number" id="p-margin" class="form-control mono" min="0" max="30" step="1">
+            </div>
+            <div class="field">
+              <label for="p-gap" data-i18n="p.gap">Térköz (mm)</label>
+              <input type="number" id="p-gap" class="form-control mono" min="0" max="30" step="0.5">
+            </div>
+          </div>
+          <label class="switch"><input type="checkbox" id="p-cut"><span data-i18n="p.cut">Vágójelek</span></label>
+          <label class="switch"><input type="checkbox" id="p-outline"><span data-i18n="p.outline">Vágási körvonal</span></label>
+          <label class="switch"><input type="checkbox" id="p-mirror"><span data-i18n="p.mirror">Tükrözés (vasalható fóliához)</span></label>
+        </div>
+
+        <div class="group">
+          <div class="group-head">
+            <h3 data-i18n="p.basket">Nyomtatási kosár</h3>
+            <span class="group-note" id="basketCount"></span>
+          </div>
+          <div class="basket" id="basket"></div>
+          <div class="basket-add">
+            <select id="basketType" class="form-select form-select-sm"></select>
+            <input type="number" id="basketQty" class="form-control form-control-sm mono" value="4" min="1" max="300">
+            <button class="btn btn-accent btn-sm" id="basketAdd" data-i18n="p.add">Hozzáad</button>
+          </div>
+          <button class="btn btn-ghost btn-sm w-100" id="basketFill" data-i18n="p.fill">Ív feltöltése az aktív matricával</button>
+          <div class="hint" id="sheetInfo"></div>
+        </div>
+
+        <div class="group">
+          <div class="group-head"><h3 data-i18n="p.tips">Nyomtatási tippek</h3></div>
+          <ul class="tips">
+            <li data-i18n="p.tip1">Fehér, matt öntapadós A4 matricapapír adja a legjobb eredményt.</li>
+            <li data-i18n="p.tip2">A nyomtatási párbeszédben a méretezés 100% legyen, ne „oldalhoz igazítva”.</li>
+            <li data-i18n="p.tip3">Kapcsold be a háttérgrafikák nyomtatását, különben a sötét matricák üresen maradnak.</li>
+            <li data-i18n="p.tip4">Kültéri használatra laminálj, vagy nyomtass vízálló fóliára.</li>
+          </ul>
+        </div>
+      </section>
+
+    </div>
+  </aside>
+
+  <section class="stage">
+    <div class="stage-bar">
+      <div class="stage-tabs" id="stageTabs"></div>
+      <div class="stage-tools">
+        <div class="zoom">
+          <button class="btn btn-icon" id="zoomOut" aria-label="−"><svg viewBox="0 0 16 16"><path d="M3.2 7.1h9.6v1.8H3.2z"/></svg></button>
+          <input type="range" id="zoom" min="60" max="900" step="10" value="320">
+          <button class="btn btn-icon" id="zoomIn" aria-label="+"><svg viewBox="0 0 16 16"><path d="M7.1 3.2h1.8v3.9h3.9v1.8H8.9v3.9H7.1V8.9H3.2V7.1h3.9z"/></svg></button>
+          <button class="btn btn-ghost btn-sm" id="zoomReal">1:1</button>
+          <button class="btn btn-ghost btn-sm" id="zoomFit" data-i18n="btn.fit">Illeszt</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage-canvas" id="stageCanvas">
+      <div class="preview-holder">
+        <div class="preview-wrap" id="previewWrap"></div>
+        <div class="preview-meta" id="previewMeta"></div>
+      </div>
+    </div>
+
+    <div class="stage-foot">
+      <div class="warnings" id="warnings"></div>
+      <div class="privacy">
+        <svg viewBox="0 0 16 16"><path d="M8 1.2 14 3.6v4.2c0 3.3-2.4 6.2-6 7.3-3.6-1.1-6-4-6-7.3V3.6L8 1.2zm-.9 4.4v3.2h1.8V5.6H7.1zm0 4.4v1.8h1.8V10H7.1z"/></svg>
+        <span data-i18n="privacy">Minden adat a böngésződben marad — nincs szerver, nincs feltöltés.</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="printRoot" aria-hidden="true"></div>
+<div class="toast-stack" id="toastStack"></div>
+<input type="file" id="jsonImport" accept="application/json" hidden>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js" crossorigin="anonymous"></script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
