@@ -1,8 +1,8 @@
 export const BLOCKS = {
-  'label.operator': { role: 'label', factor: 0.5, face: 'face.operator' },
-  'label.reg': { role: 'label', factor: 0.5, face: 'face.reg' },
-  'label.contact': { role: 'label', factor: 0.5, face: 'face.contact' },
-  'label.battery': { role: 'label', factor: 0.5, face: 'face.battery' },
+  'label.operator': { role: 'label', factor: 0.62, face: 'face.operator' },
+  'label.reg': { role: 'label', factor: 0.62, face: 'face.reg' },
+  'label.contact': { role: 'label', factor: 0.62, face: 'face.contact' },
+  'label.battery': { role: 'label', factor: 0.62, face: 'face.battery' },
   'rule': { role: 'rule', factor: 0.24, i18n: 'blk.rule' },
   'logo': { role: 'logo', factor: 1.1, i18n: 'blk.logo' },
   'operatorId': { role: 'value', factor: 1.45, mono: true, key: 'operatorId', i18n: 'blk.operatorId' },

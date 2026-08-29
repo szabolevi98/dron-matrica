@@ -7,6 +7,7 @@ const NS = 'http://www.w3.org/2000/svg';
 const XLINK = 'http://www.w3.org/1999/xlink';
 const LINE = 1.28;
 const GAP = 0.34;
+const MIN_TEXT = 1.6;
 
 let host = null;
 
@@ -41,6 +42,33 @@ function shapeNode(shape, x, y, w, h, r, attrs) {
   }
   const rx = Math.max(0, Math.min(r, Math.min(w, h) / 2));
   return el('rect', { x: num(x), y: num(y), width: num(w), height: num(h), rx: num(rx), ry: num(rx), ...attrs });
+}
+
+function fitSizes(rows, budget, unit) {
+  const base = rows.map(r => unit * r.def.factor);
+  const eligible = rows.map(r => r.def.role === 'label' || r.def.role === 'value' || r.def.role === 'meta');
+  if (!base.some((v, i) => eligible[i] && v < MIN_TEXT)) return base;
+
+  const locked = new Set();
+  for (let guard = 0; guard <= rows.length; guard++) {
+    let fixed = 0;
+    let freeF = 0;
+    rows.forEach((r, i) => {
+      if (locked.has(i)) fixed += MIN_TEXT;
+      else freeF += r.def.factor;
+    });
+    const free = budget / LINE - fixed;
+    if (freeF <= 0 || free <= 0) return base;
+    const k = free / freeF;
+    let next = -1;
+    for (let i = 0; i < rows.length; i++) {
+      if (locked.has(i) || !eligible[i]) continue;
+      if (k * rows[i].def.factor < MIN_TEXT) { next = i; break; }
+    }
+    if (next === -1) return rows.map((r, i) => (locked.has(i) ? MIN_TEXT : k * r.def.factor));
+    locked.add(next);
+  }
+  return base;
 }
 
 function faceText(block, style) {
@@ -123,7 +151,8 @@ export function renderSticker(typeId, state, d) {
     }));
   }
 
-  const pad = style.padding + bw;
+  const padBase = Math.min(style.padding, Math.min(W, H) * 0.13);
+  const pad = padBase + bw;
   let boxX = pad;
   let boxY = pad;
   let boxW = W - pad * 2;
@@ -132,8 +161,8 @@ export function renderSticker(typeId, state, d) {
   if (cfg.shape === 'ellipse' || cfg.shape === 'circle') {
     const rw = (cfg.shape === 'circle' ? Math.min(W, H) : W) / Math.SQRT2;
     const rh = (cfg.shape === 'circle' ? Math.min(W, H) : H) / Math.SQRT2;
-    boxW = rw - style.padding * 2;
-    boxH = rh - style.padding * 2;
+    boxW = rw - padBase * 2;
+    boxH = rh - padBase * 2;
     boxX = (W - boxW) / 2;
     boxY = (H - boxH) / 2;
   }
@@ -198,10 +227,11 @@ export function renderSticker(typeId, state, d) {
 
   const sumF = rows.reduce((s, r) => s + r.def.factor, 0);
   const denom = sumF * LINE + (rows.length - 1) * GAP;
-  let unit = boxH / denom;
-  unit *= style.fill / 100;
+  const unit = boxH / denom * (style.fill / 100);
+  const gapSize = GAP * unit;
+  const sizes = fitSizes(rows, sumF * LINE * unit, unit);
 
-  const total = sumF * LINE * unit + (rows.length - 1) * GAP * unit;
+  const total = sizes.reduce((s, v) => s + v * LINE, 0) + (rows.length - 1) * gapSize;
   let y = boxY + (boxH - total) / 2;
 
   const anchor = style.align;
@@ -210,9 +240,11 @@ export function renderSticker(typeId, state, d) {
 
   const texts = [];
 
+  let rowIndex = -1;
   for (const row of rows) {
+    rowIndex++;
     const def = row.def;
-    const size = unit * def.factor;
+    const size = sizes[rowIndex];
     const rowH = size * LINE;
 
     if (def.role === 'rule') {
@@ -222,7 +254,7 @@ export function renderSticker(typeId, state, d) {
         x1: num(rx0), y1: num(y + rowH / 2), x2: num(rx0 + rw), y2: num(y + rowH / 2),
         stroke: style.accent, 'stroke-width': num(Math.max(0.12, unit * 0.06)), opacity: 0.55
       }));
-      y += rowH + GAP * unit;
+      y += rowH + gapSize;
       continue;
     }
 
@@ -237,7 +269,7 @@ export function renderSticker(typeId, state, d) {
       img.setAttribute('href', media.logo);
       img.setAttributeNS(XLINK, 'xlink:href', media.logo);
       content.appendChild(img);
-      y += rowH + GAP * unit;
+      y += rowH + gapSize;
       continue;
     }
 
@@ -256,7 +288,7 @@ export function renderSticker(typeId, state, d) {
       'font-weight': isLabel ? 600 : def.role === 'value' ? 700 : 500,
       'text-anchor': anchor,
       fill,
-      'letter-spacing': num(style.tracking / 100 + (isLabel ? size * 0.06 : 0)),
+      'letter-spacing': num(style.tracking / 100 + (isLabel ? size * 0.04 : 0)),
       opacity: isMeta ? 0.78 : 1
     });
 
@@ -271,7 +303,7 @@ export function renderSticker(typeId, state, d) {
 
     content.appendChild(node);
     texts.push({ node, size, max: boxW });
-    y += rowH + GAP * unit;
+    y += rowH + gapSize;
   }
 
   const h = measureHost();
