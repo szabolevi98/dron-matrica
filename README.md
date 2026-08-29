@@ -29,7 +29,7 @@ Minden típus mérete, alakja, tartalma és sorrendje külön állítható, és 
 - **Builder panel** — minden tartalmi elem külön ki/be kapcsolható és sorrendezhető
 - **Automatikus tipográfia** — a szöveg soha nem lóg ki, a betűméret magától igazodik a matricához
 - **Kontraszt-ellenőrző** — WCAG-alapú mérés, figyelmeztet, ha a jelölés nehezen olvashatóvá válik
-- **Titkos kód figyelmeztetés** — jelzi, hogy a regisztrációs szám végén álló, kötőjeles hármas kód titkos, és nem a matricára való
+- **Titkos kód figyelmeztetés** — pirossal jelzi, ha a regisztrációs szám kötőjeles, titkos ellenőrző kódja rákerülne a matricára
 - **QR kód** — hívható telefonszám, vCard névjegy, link, azonosítók vagy egyedi szöveg
 - **Logó és háttérkép** — saját kép beágyazható, opacitás-szabályozással
 - **Nyomtatási kosár** — több különböző matrica egy A4-es ívre, vágójelekkel és térközzel
