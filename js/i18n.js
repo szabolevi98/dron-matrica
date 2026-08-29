@@ -45,6 +45,8 @@ const DICT = {
     'f.class': 'Osztály',
     'f.url': 'Weboldal vagy visszajuttatási link',
     'f.batNo': 'Akku sorszáma',
+    'f.batNo.hint': 'Tartományt is megadhatsz: az 1-6 hat sorszámozott címkét nyomtat. Vesszős lista is működik.',
+    'f.batNo.series': '{n} sorszámozott címke lesz belőle: {first} … {last}',
     'f.batCap': 'Kapacitás',
     'f.batDate': 'Üzembe helyezés dátuma',
 
@@ -253,6 +255,8 @@ const DICT = {
     'f.class': 'Class',
     'f.url': 'Website or recovery link',
     'f.batNo': 'Battery number',
+    'f.batNo.hint': 'You can enter a range: 1-6 prints six numbered labels. A comma separated list also works.',
+    'f.batNo.series': 'This makes {n} numbered labels: {first} … {last}',
     'f.batCap': 'Capacity',
     'f.batDate': 'In service since',
 

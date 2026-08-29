@@ -28,7 +28,7 @@ const SAMPLE = {
   serial: '1581F5FHD24CN0012',
   mtom: '249 g',
   cls: 'C0',
-  batNo: '01',
+  batNo: '01-04',
   batCap: '2590 mAh'
 };
 
@@ -634,6 +634,15 @@ function updateWarnings(info, d, cc) {
     : t('f.operatorId.hint');
 }
 
+function updateSeriesHint(d) {
+  const node = $('hint-batNo');
+  if (!node) return;
+  const n = d.batSeries.length;
+  node.textContent = n > 1
+    ? t('f.batNo.series', { n, first: d.batSeries[0], last: d.batSeries[n - 1] })
+    : t('f.batNo.hint');
+}
+
 function updateQrInfo(info) {
   const cfg = state.types[state.active];
   if (!cfg.qr) { $('qrInfo').textContent = t('q.off'); return; }
@@ -694,6 +703,7 @@ function renderPreview() {
   const cc = updateContrast();
   updateWarnings(result.info, d, cc);
   updateQrInfo(result.info);
+  updateSeriesHint(d);
 }
 
 function syncAll() {
@@ -777,8 +787,14 @@ function currentName() {
 
 function svgCache() {
   const cache = {};
+  const seen = {};
   const d = derive(state.data, state.lang);
   return typeId => {
+    const nth = (seen[typeId] = (seen[typeId] || 0) + 1) - 1;
+    if (typeId === 'battery' && d.batSeries.length > 1) {
+      const numbered = { ...d, batNo: d.batSeries[nth % d.batSeries.length] };
+      return renderSticker(typeId, state, numbered).svg;
+    }
     if (!cache[typeId]) cache[typeId] = renderSticker(typeId, state, d).svg;
     return cache[typeId].cloneNode(true);
   };
@@ -914,6 +930,11 @@ function wire() {
   onInput('p-cut', n => { state.print.cut = n.checked; });
   onInput('p-outline', n => { state.print.outline = n.checked; });
   onInput('p-mirror', n => { state.print.mirror = n.checked; });
+
+  $('basketType').addEventListener('change', () => {
+    const series = derive(state.data, state.lang).batSeries;
+    if ($('basketType').value === 'battery' && series.length > 1) $('basketQty').value = series.length;
+  });
 
   $('basketAdd').addEventListener('click', () => {
     const typeId = $('basketType').value;

@@ -20,6 +20,26 @@ export function phoneDigits(dial, phone) {
   return plus + s.replace(/[^0-9]/g, '');
 }
 
+export function numberSeries(raw) {
+  const text = String(raw || '').trim();
+  if (!text) return [];
+  if (text.includes(',')) {
+    return text.split(',').map(x => x.trim()).filter(Boolean).slice(0, 200);
+  }
+  const range = text.match(/^(\d+)\s*[-–]\s*(\d+)$/);
+  if (!range) return [text];
+  const pad = range[1].length;
+  const from = parseInt(range[1], 10);
+  const to = parseInt(range[2], 10);
+  const step = from <= to ? 1 : -1;
+  const out = [];
+  for (let v = from; out.length < 200; v += step) {
+    out.push(String(Math.abs(v)).padStart(pad, '0'));
+    if (v === to) break;
+  }
+  return out;
+}
+
 export function formatDate(iso, lang) {
   if (!iso) return '';
   const parts = iso.split('-');
@@ -29,6 +49,7 @@ export function formatDate(iso, lang) {
 
 export function derive(data, lang) {
   const op = parseOperatorId(data.operatorId);
+  const batSeries = numberSeries(data.batNo);
   const spec = [data.mtom, data.cls].filter(Boolean).join(' · ');
   return {
     operatorId: op.value,
@@ -44,7 +65,8 @@ export function derive(data, lang) {
     spec,
     url: String(data.url || '').trim().replace(/^https?:\/\//, ''),
     urlFull: String(data.url || '').trim(),
-    batNo: String(data.batNo || '').trim(),
+    batNo: batSeries[0] || '',
+    batSeries,
     batCap: String(data.batCap || '').trim(),
     batDate: formatDate(data.batDate, lang)
   };
