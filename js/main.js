@@ -38,7 +38,7 @@ function defaultState(demo) {
   return {
     v: 1,
     lang: 'hu',
-    active: 'operator',
+    active: 'mixed',
     data: {
       operatorId: demo ? SAMPLE.operatorId : '',
       regId: demo ? SAMPLE.regId : '',
@@ -113,7 +113,7 @@ function adopt(raw) {
       if (!next.types[id].blocks.some(b => b.id === bid)) next.types[id].blocks.push({ id: bid, on: false });
     });
   });
-  if (!TYPE_IDS.includes(next.active)) next.active = 'operator';
+  if (!TYPE_IDS.includes(next.active)) next.active = TYPE_IDS[0];
   next.print.basket = (next.print.basket || []).filter(b => TYPE_IDS.includes(b.typeId));
   return next;
 }
