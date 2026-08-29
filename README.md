@@ -18,7 +18,7 @@ Nyomdakész drón azonosító matricák a böngésződben: üzembentartói regis
 | Mini · üzembentartó | 26 × 10 mm | Csak a `HUN…` szám akkura, kontrollerre, táskára |
 | Mini · lajstrom | 26 × 10 mm | Csak a lajstromszám, ugyanabban a méretben |
 | Kontakt matrica | 55 × 35 mm | Név, telefon, e-mail + QR a megtalálónak |
-| Akku címke | 40 × 20 mm | Sorszám, kapacitás, üzembe helyezés dátuma |
+| Akku címke | 40 × 20 mm | Sorszám, kapacitás, dátum, sorszámozott sorozatban |
 
 A jogszabály csak a két azonosítót írja elő: az üzembentartói számot és a drón lajstromszámát. A név, telefonszám, e-mail és weboldal mind opcionális. Ezért az első két típus önmagában is elég, a többi extra.
 
@@ -34,6 +34,7 @@ Minden típus mérete, alakja, tartalma és sorrendje külön állítható, és 
 - **QR kód**: hívható telefonszám, vCard névjegy, link, azonosítók vagy egyedi szöveg
 - **Logó és háttérkép**: saját kép beágyazható, opacitás-szabályozással
 - **Nyomtatási kosár**: több különböző matrica egy A4-es ívre, vágójelekkel és térközzel
+- **Sorszámozott akku címkék**: az `1-6` tartományból hat, egyenként számozott címke lesz nyomtatáskor
 - **Export**: PNG (300 / 600 / 1200 DPI), vektoros SVG, PDF
 - **Drónjaim**: több eszköz beállítása menthető, JSON-ba exportálható és megosztható linkkel
 - **Magyar és angol** felület, kétnyelvű feliratok a matricán is
