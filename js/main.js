@@ -1000,6 +1000,9 @@ function boot() {
   $('d-scale').max = 100;
   if (d.fill > 100) d.fill = 92;
 
+  const yearNode = $('creditYear');
+  if (yearNode) yearNode.textContent = new Date().getFullYear();
+
   wire();
   buildFontSelect();
   buildProfiles();

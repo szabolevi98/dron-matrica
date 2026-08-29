@@ -45,8 +45,14 @@ const TYPE_DEFS = {
     ]
   },
   mini: {
+    required: true,
     w: 26, h: 10, shape: 'round', radius: 18, qr: false,
-    blocks: [['operatorId', 1], ['phone', 0], ['owner', 0]]
+    blocks: [['operatorId', 1], ['label.operator', 0], ['phone', 0], ['owner', 0]]
+  },
+  miniReg: {
+    required: true,
+    w: 26, h: 10, shape: 'round', radius: 18, qr: false,
+    blocks: [['regId', 1], ['label.reg', 0], ['operatorId', 0], ['model', 0]]
   },
   battery: {
     w: 40, h: 20, shape: 'round', radius: 12, qr: false,

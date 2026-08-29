@@ -147,7 +147,6 @@ const DICT = {
     'contrast.warn': 'Elfogadható, de javítható',
     'contrast.bad': 'Túl gyenge kontraszt',
 
-    'privacy': 'Minden adat a böngésződben marad — nincs szerver, nincs feltöltés.',
 
     'toast.saved': 'Mentve: {n}',
     'toast.deleted': 'Törölve',
@@ -166,7 +165,8 @@ const DICT = {
     'type.operator': 'Üzembentartói matrica',
     'type.reg': 'Lajstrom matrica',
     'type.contact': 'Kontakt matrica',
-    'type.mini': 'Mini matrica',
+    'type.mini': 'Mini · üzembentartó',
+    'type.miniReg': 'Mini · lajstrom',
     'type.battery': 'Akku címke',
     'type.required': 'kötelező',
 
@@ -351,7 +351,6 @@ const DICT = {
     'contrast.warn': 'Acceptable, could be better',
     'contrast.bad': 'Contrast is too low',
 
-    'privacy': 'Everything stays in your browser — no server, no upload.',
 
     'toast.saved': 'Saved: {n}',
     'toast.deleted': 'Deleted',
@@ -370,7 +369,8 @@ const DICT = {
     'type.operator': 'Operator label',
     'type.reg': 'Registration label',
     'type.contact': 'Contact label',
-    'type.mini': 'Mini label',
+    'type.mini': 'Mini · operator',
+    'type.miniReg': 'Mini · registration',
     'type.battery': 'Battery label',
     'type.required': 'mandatory',
 
