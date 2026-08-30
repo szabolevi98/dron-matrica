@@ -4,6 +4,8 @@ export const BLOCKS = {
   'label.contact': { role: 'label', factor: 0.62, face: 'face.contact' },
   'label.battery': { role: 'label', factor: 0.62, face: 'face.battery' },
   'rule': { role: 'rule', factor: 0.24, i18n: 'blk.rule' },
+  'rule2': { role: 'rule', factor: 0.24, i18n: 'blk.rule' },
+  'rule3': { role: 'rule', factor: 0.24, i18n: 'blk.rule' },
   'logo': { role: 'logo', factor: 1.1, i18n: 'blk.logo' },
   'operatorId': { role: 'value', factor: 1.45, mono: true, key: 'operatorId', i18n: 'blk.operatorId' },
   'regId': { role: 'value', factor: 1.45, mono: true, key: 'regId', i18n: 'blk.regId' },
@@ -26,8 +28,8 @@ const TYPE_DEFS = {
     w: 55, h: 35, shape: 'round', radius: 14, qr: false,
     blocks: [
       ['label.operator', 1], ['operatorId', 1], ['rule', 1],
-      ['label.reg', 1], ['regId', 1],
-      ['owner', 0], ['phone', 0], ['model', 0], ['spec', 0],
+      ['label.reg', 1], ['regId', 1], ['rule2', 0],
+      ['owner', 0], ['phone', 0], ['model', 0], ['spec', 0], ['rule3', 0],
       ['serial', 0], ['text', 0], ['logo', 0]
     ]
   },
