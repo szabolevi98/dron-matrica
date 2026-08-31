@@ -97,9 +97,10 @@
 
       <section class="pane active" id="pane-data">
         <div class="group">
-          <div class="group-head"><h3 data-i18n="data.required">Kötelező azonosítók</h3></div>
+          <div class="group-head"><h3 data-i18n="data.required">Kötelező azonosítók</h3>
+            <button type="button" class="group-reset" data-reset="data.ids" data-i18n-title="reset.title" data-i18n-aria="reset.title" title="Alapértékek visszaállítása"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.2V1l3.4 3.2L8 7.4V5A3.4 3.4 0 1 0 11.4 8.4h1.7A5.1 5.1 0 1 1 8 3.2z"/></svg></button></div>
           <div class="field">
-            <label for="f-regId" data-i18n="f.regId">Drón azonosító / lajstromszám</label>
+            <label for="f-regId" data-i18n="f.regId">Drón azonosító</label>
             <input type="text" id="f-regId" class="form-control mono" placeholder="HA00ABC-UAS" autocomplete="off" spellcheck="false">
           </div>
           <div class="field">
@@ -117,7 +118,8 @@
         </div>
 
         <div class="group">
-          <div class="group-head"><h3 data-i18n="data.contact">Kapcsolattartás</h3></div>
+          <div class="group-head"><h3 data-i18n="data.contact">Kapcsolattartás</h3>
+            <button type="button" class="group-reset" data-reset="data.contact" data-i18n-title="reset.title" data-i18n-aria="reset.title" title="Alapértékek visszaállítása"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.2V1l3.4 3.2L8 7.4V5A3.4 3.4 0 1 0 11.4 8.4h1.7A5.1 5.1 0 1 1 8 3.2z"/></svg></button></div>
           <div class="field">
             <label for="f-owner" data-i18n="f.owner">Üzembentartó neve</label>
             <input type="text" id="f-owner" class="form-control" placeholder="Kovács János" autocomplete="off">
@@ -155,7 +157,8 @@
         </div>
 
         <div class="group">
-          <div class="group-head"><h3 data-i18n="data.aircraft">Eszköz adatai</h3></div>
+          <div class="group-head"><h3 data-i18n="data.aircraft">Eszköz adatai</h3>
+            <button type="button" class="group-reset" data-reset="data.device" data-i18n-title="reset.title" data-i18n-aria="reset.title" title="Alapértékek visszaállítása"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.2V1l3.4 3.2L8 7.4V5A3.4 3.4 0 1 0 11.4 8.4h1.7A5.1 5.1 0 1 1 8 3.2z"/></svg></button></div>
           <div class="field-row">
             <div class="field">
               <label for="f-model" data-i18n="f.model">Típus</label>
@@ -187,7 +190,8 @@
         </div>
 
         <div class="group">
-          <div class="group-head"><h3 data-i18n="data.battery">Akkumulátor címke</h3></div>
+          <div class="group-head"><h3 data-i18n="data.battery">Akkumulátor címke</h3>
+            <button type="button" class="group-reset" data-reset="data.battery" data-i18n-title="reset.title" data-i18n-aria="reset.title" title="Alapértékek visszaállítása"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.2V1l3.4 3.2L8 7.4V5A3.4 3.4 0 1 0 11.4 8.4h1.7A5.1 5.1 0 1 1 8 3.2z"/></svg></button></div>
           <div class="field-row">
             <div class="field">
               <label for="f-batNo" data-i18n="f.batNo">Akku sorszáma</label>
@@ -211,12 +215,14 @@
           <div class="group-head">
             <h3 data-i18n="st.types">Matrica típusok</h3>
             <span class="group-note" data-i18n="st.types.note">Kattints a szerkesztéshez</span>
+            <button type="button" class="group-reset" data-reset="types.on" data-i18n-title="reset.title" data-i18n-aria="reset.title" title="Alapértékek visszaállítása"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.2V1l3.4 3.2L8 7.4V5A3.4 3.4 0 1 0 11.4 8.4h1.7A5.1 5.1 0 1 1 8 3.2z"/></svg></button>
           </div>
           <div class="type-list" id="typeList"></div>
         </div>
 
         <div class="group">
-          <div class="group-head"><h3><span data-i18n="st.size">Méret</span> · <span class="accent-text" id="activeTypeName"></span></h3></div>
+          <div class="group-head"><h3><span data-i18n="st.size">Méret</span> · <span class="accent-text" id="activeTypeName"></span></h3>
+            <button type="button" class="group-reset" data-reset="type.size" data-i18n-title="reset.title" data-i18n-aria="reset.title" title="Alapértékek visszaállítása"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.2V1l3.4 3.2L8 7.4V5A3.4 3.4 0 1 0 11.4 8.4h1.7A5.1 5.1 0 1 1 8 3.2z"/></svg></button></div>
           <div class="field">
             <label data-i18n="st.preset">Gyakori méretek</label>
             <div class="chips" id="sizePresets"></div>
@@ -253,15 +259,16 @@
           <div class="group-head">
             <h3 data-i18n="st.blocks">Tartalmi elemek</h3>
             <span class="group-note" data-i18n="st.blocks.note">Húzd vagy nyilazd</span>
+            <button type="button" class="group-reset" data-reset="type.blocks" data-i18n-title="reset.title" data-i18n-aria="reset.title" title="Alapértékek visszaállítása"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.2V1l3.4 3.2L8 7.4V5A3.4 3.4 0 1 0 11.4 8.4h1.7A5.1 5.1 0 1 1 8 3.2z"/></svg></button>
           </div>
           <div class="block-list" id="blockList"></div>
-          <button class="btn btn-ghost btn-sm w-100" id="resetBlocks" data-i18n="st.blocks.reset">Alapértelmezett elrendezés visszaállítása</button>
         </div>
       </section>
 
       <section class="pane" id="pane-design">
         <div class="group">
-          <div class="group-head"><h3 data-i18n="d.theme">Színséma</h3></div>
+          <div class="group-head"><h3 data-i18n="d.theme">Színséma</h3>
+            <button type="button" class="group-reset" data-reset="style.colors" data-i18n-title="reset.title" data-i18n-aria="reset.title" title="Alapértékek visszaállítása"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.2V1l3.4 3.2L8 7.4V5A3.4 3.4 0 1 0 11.4 8.4h1.7A5.1 5.1 0 1 1 8 3.2z"/></svg></button></div>
           <div class="theme-grid" id="themeGrid"></div>
           <div class="field-row field-colors">
             <div class="field">
@@ -285,7 +292,8 @@
         </div>
 
         <div class="group">
-          <div class="group-head"><h3 data-i18n="d.type">Tipográfia</h3></div>
+          <div class="group-head"><h3 data-i18n="d.type">Tipográfia</h3>
+            <button type="button" class="group-reset" data-reset="style.type" data-i18n-title="reset.title" data-i18n-aria="reset.title" title="Alapértékek visszaállítása"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.2V1l3.4 3.2L8 7.4V5A3.4 3.4 0 1 0 11.4 8.4h1.7A5.1 5.1 0 1 1 8 3.2z"/></svg></button></div>
           <div class="field">
             <label for="d-font" data-i18n="d.font">Betűtípus</label>
             <select id="d-font" class="form-select"></select>
@@ -322,7 +330,8 @@
         </div>
 
         <div class="group">
-          <div class="group-head"><h3 data-i18n="d.frame">Vonalak és margó</h3></div>
+          <div class="group-head"><h3 data-i18n="d.frame">Vonalak és margó</h3>
+            <button type="button" class="group-reset" data-reset="style.frame" data-i18n-title="reset.title" data-i18n-aria="reset.title" title="Alapértékek visszaállítása"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.2V1l3.4 3.2L8 7.4V5A3.4 3.4 0 1 0 11.4 8.4h1.7A5.1 5.1 0 1 1 8 3.2z"/></svg></button></div>
           <div class="field">
             <label for="d-border"><span data-i18n="d.border">Keret vastagsága</span><output id="d-border-o" class="mono"></output></label>
             <input type="range" id="d-border" class="form-range" min="0" max="1.6" step="0.05">
@@ -336,6 +345,7 @@
         <div class="group">
           <div class="group-head">
             <h3 data-i18n="d.qr">QR kód</h3>
+            <button type="button" class="group-reset" data-reset="qr" data-i18n-title="reset.title" data-i18n-aria="reset.title" title="Alapértékek visszaállítása"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.2V1l3.4 3.2L8 7.4V5A3.4 3.4 0 1 0 11.4 8.4h1.7A5.1 5.1 0 1 1 8 3.2z"/></svg></button>
             <label class="switch switch-bare"><input type="checkbox" id="q-enabled"><span></span></label>
           </div>
           <div class="sub" id="qrSub">
@@ -381,7 +391,8 @@
         </div>
 
         <div class="group">
-          <div class="group-head"><h3 data-i18n="d.media">Logó és háttérkép</h3></div>
+          <div class="group-head"><h3 data-i18n="d.media">Logó és háttérkép</h3>
+            <button type="button" class="group-reset" data-reset="media" data-i18n-title="reset.title" data-i18n-aria="reset.title" title="Alapértékek visszaállítása"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.2V1l3.4 3.2L8 7.4V5A3.4 3.4 0 1 0 11.4 8.4h1.7A5.1 5.1 0 1 1 8 3.2z"/></svg></button></div>
           <div class="field">
             <label data-i18n="m.logo">Logó</label>
             <div class="dropzone" id="logoDrop">
@@ -421,7 +432,8 @@
 
       <section class="pane" id="pane-print">
         <div class="group">
-          <div class="group-head"><h3 data-i18n="p.sheet">Nyomtatási ív</h3></div>
+          <div class="group-head"><h3 data-i18n="p.sheet">Nyomtatási ív</h3>
+            <button type="button" class="group-reset" data-reset="print.sheet" data-i18n-title="reset.title" data-i18n-aria="reset.title" title="Alapértékek visszaállítása"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.2V1l3.4 3.2L8 7.4V5A3.4 3.4 0 1 0 11.4 8.4h1.7A5.1 5.1 0 1 1 8 3.2z"/></svg></button></div>
           <div class="field-row">
             <div class="field">
               <label for="p-paper" data-i18n="p.paper">Papír</label>
@@ -459,6 +471,7 @@
           <div class="group-head">
             <h3 data-i18n="p.basket">Nyomtatási kosár</h3>
             <span class="group-note" id="basketCount"></span>
+            <button type="button" class="group-reset" data-reset="print.basket" data-i18n-title="reset.title" data-i18n-aria="reset.title" title="Alapértékek visszaállítása"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.2V1l3.4 3.2L8 7.4V5A3.4 3.4 0 1 0 11.4 8.4h1.7A5.1 5.1 0 1 1 8 3.2z"/></svg></button>
           </div>
           <div class="basket" id="basket"></div>
           <div class="basket-add">

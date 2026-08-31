@@ -223,6 +223,45 @@ function buildTypeList() {
   });
 }
 
+const RESETS = {
+  'data.ids': (s, d) => Object.assign(s.data, { operatorId: d.data.operatorId, regId: d.data.regId }),
+  'data.contact': (s, d) => Object.assign(s.data, {
+    owner: d.data.owner, dial: d.data.dial, phone: d.data.phone, email: d.data.email, text: d.data.text
+  }),
+  'data.device': (s, d) => Object.assign(s.data, {
+    model: d.data.model, serial: d.data.serial, mtom: d.data.mtom, cls: d.data.cls, url: d.data.url
+  }),
+  'data.battery': (s, d) => Object.assign(s.data, {
+    batNo: d.data.batNo, batCap: d.data.batCap, batDate: d.data.batDate
+  }),
+  'types.on': s => TYPE_IDS.forEach(id => { s.types[id].on = true; }),
+  'type.size': s => {
+    const def = defaultType(s.active);
+    Object.assign(s.types[s.active], { w: def.w, h: def.h, shape: def.shape, radius: def.radius });
+  },
+  'type.blocks': s => { s.types[s.active].blocks = defaultBlocks(s.active); },
+  'style.colors': (s, d) => Object.assign(s.style, {
+    theme: d.style.theme, bg: d.style.bg, fg: d.style.fg,
+    accent: d.style.accent, borderColor: d.style.borderColor
+  }),
+  'style.type': (s, d) => Object.assign(s.style, {
+    font: d.style.font, fill: d.style.fill, tracking: d.style.tracking, align: d.style.align,
+    upper: d.style.upper, monoIds: d.style.monoIds, bilingual: d.style.bilingual,
+    regCaption: d.style.regCaption
+  }),
+  'style.frame': (s, d) => Object.assign(s.style, { border: d.style.border, padding: d.style.padding }),
+  'qr': (s, d) => {
+    Object.assign(s.qr, d.qr);
+    s.types[s.active].qr = defaultType(s.active).qr;
+  },
+  'media': (s, d) => Object.assign(s.media, d.media),
+  'print.sheet': (s, d) => Object.assign(s.print, {
+    paper: d.print.paper, orientation: d.print.orientation, margin: d.print.margin,
+    gap: d.print.gap, cut: d.print.cut, outline: d.print.outline, mirror: d.print.mirror
+  }),
+  'print.basket': s => { s.print.basket = []; }
+};
+
 function enabledTypes() {
   return TYPE_IDS.filter(id => state.types[id].on);
 }
@@ -881,10 +920,6 @@ function wire() {
     commit();
   });
 
-  $('resetBlocks').addEventListener('click', () => {
-    state.types[state.active].blocks = defaultBlocks(state.active);
-    commit();
-  });
 
   const blockBox = $('blockList');
   blockBox.addEventListener('dragover', e => {
@@ -960,6 +995,15 @@ function wire() {
   $('sideTabs').addEventListener('click', e => {
     const b = e.target.closest('button');
     if (b) openPane(b.dataset.pane);
+  });
+
+  document.querySelectorAll('.group-reset').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const apply = RESETS[btn.dataset.reset];
+      if (!apply) return;
+      apply(state, defaultState(false));
+      commit();
+    });
   });
 
   $('langSwitch').addEventListener('click', e => {
