@@ -96,6 +96,7 @@ function rowsFor(typeCfg, d, style, media) {
       out.push({ def, text: '', prefix: '' });
       continue;
     }
+    if (def.pairs && !String(d[def.pairs] || '').trim()) continue;
     const raw = def.face ? faceText(def, style) : (d[def.key] || '');
     if (!raw) continue;
     let prefix = '';
