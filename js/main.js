@@ -1,19 +1,19 @@
-import { t, setLang, applyI18n, lang } from './i18n.js?v=202608311736';
+import { t, setLang, applyI18n, lang } from './i18n.js?v=202608311748';
 import {
   BLOCKS, TYPE_IDS, typeMeta, defaultType, defaultBlocks,
   THEMES, FONTS, SIZE_PRESETS
-} from './layouts.js?v=202608311736';
-import { derive, contrast, contrastLevel, mixOver } from './validate.js?v=202608311736';
-import { renderSticker } from './render.js?v=202608311736';
+} from './layouts.js?v=202608311748';
+import { derive, contrast, contrastLevel, mixOver } from './validate.js?v=202608311748';
+import { renderSticker } from './render.js?v=202608311748';
 import {
   exportPng, exportSvg, exportPdf, download, safeName,
   packSheets, perSheet, buildPrintDom, setPageSize
-} from './export.js?v=202608311736';
+} from './export.js?v=202608311748';
 import {
   listProfiles, activeProfileId, saveProfile, deleteProfile,
   setActiveProfile, lastState, rememberState, encodeShare, decodeShare,
   mobileNoteHidden, hideMobileNote
-} from './store.js?v=202608311736';
+} from './store.js?v=202608311748';
 
 const $ = id => document.getElementById(id);
 const MM_PX = 96 / 25.4;
@@ -161,12 +161,34 @@ function toast(msg, kind) {
   setTimeout(() => node.remove(), 3200);
 }
 
-function isBlank() {
-  return Object.keys(state.data).every(k => k === 'dial' || !String(state.data[k] || '').trim());
+const BLOCK_FIELDS = { spec: ['mtom', 'cls'] };
+
+function isEmptyField(key) {
+  return !String(state.data[key] || '').trim();
 }
 
 function previewData() {
-  return derive(isBlank() ? { ...state.data, ...PLACEHOLDER } : state.data, state.lang);
+  const filled = { ...state.data };
+  Object.keys(PLACEHOLDER).forEach(k => {
+    if (isEmptyField(k)) filled[k] = PLACEHOLDER[k];
+  });
+  return derive(filled, state.lang);
+}
+
+function missingFields(typeIds) {
+  const names = new Map();
+  typeIds.forEach(typeId => {
+    state.types[typeId].blocks.forEach(b => {
+      if (!b.on) return;
+      const def = BLOCKS[b.id];
+      if (!def) return;
+      const keys = def.key ? (BLOCK_FIELDS[def.key] || [def.key]) : (def.pairs ? [def.pairs] : []);
+      keys.forEach(k => {
+        if (k in PLACEHOLDER && isEmptyField(k)) names.set(k, blockName(b.id));
+      });
+    });
+  });
+  return [...names.values()];
 }
 
 function typeName(id) { return t('type.' + id); }
@@ -666,7 +688,7 @@ function updateWarnings(info, d, cc) {
   box.textContent = '';
   const list = [];
 
-  if (isBlank()) list.push(['warn', 'v.placeholder']);
+  if (missingFields([state.active]).length) list.push(['warn', 'v.placeholder']);
   else if (!d.operatorId) list.push(['err', 'v.empty']);
   else if (d.operatorSecret) list.push(['err', 'v.secret']);
   if (!d.regId && (state.active === 'reg' || state.active === 'miniReg')) list.push(['warn', 'v.noReg']);
@@ -869,18 +891,19 @@ function flashBasket() {
   box.scrollIntoView({ block: 'center', behavior: 'smooth' });
 }
 
-function requireData() {
-  if (!isBlank()) return true;
+function requireData(typeIds) {
+  const missing = missingFields(typeIds);
+  if (!missing.length) return true;
   openPane('pane-data');
-  const field = $('f-regId');
+  const field = $('f-operatorId');
   field.scrollIntoView({ block: 'center', behavior: 'smooth' });
-  field.focus();
-  toast(t('toast.blank'), 'bad');
+  toast(t('toast.blank', { n: missing.join(', ') }), 'bad');
   return false;
 }
 
 function doPrint() {
-  if (!requireData()) return;
+  const queued = [...new Set(state.print.basket.map(b => b.typeId))];
+  if (queued.length && !requireData(queued)) return;
   const items = state.print.basket
     .filter(b => b.count > 0)
     .map(b => ({ typeId: b.typeId, count: b.count, w: state.types[b.typeId].w, h: state.types[b.typeId].h }));
@@ -897,7 +920,7 @@ function doPrint() {
 }
 
 async function handleExport(kind, dpi) {
-  if (['png', 'svg', 'pdf'].includes(kind) && !requireData()) return;
+  if (['png', 'svg', 'pdf'].includes(kind) && !requireData([state.active])) return;
   const cfg = state.types[state.active];
   const d = derive(state.data, state.lang);
   const { svg } = renderSticker(state.active, state, d);
