@@ -71,9 +71,11 @@ function fitSizes(rows, budget, unit) {
   return base;
 }
 
+const REG_CAPTIONS = { id: 'face.regAlt', reg: 'face.reg', official: 'face.regOfficial' };
+
 function faceText(block, style) {
   if (!block.face) return '';
-  const key = block.face === 'face.reg' && style.regCaption === 'id' ? 'face.regAlt' : block.face;
+  const key = block.face === 'face.reg' ? (REG_CAPTIONS[style.regCaption] || REG_CAPTIONS.id) : block.face;
   if (style.bilingual) {
     const hu = tIn('hu', key);
     const en = tIn('en', key);
