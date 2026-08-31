@@ -74,6 +74,14 @@ vendor/         helyben tárolt függőségek és betűtípus
 assets/         favicon és képek
 ```
 
+Az `index.html` és a modulok `?v=` címkével hivatkoznak egymásra, hogy a
+böngésző és a CDN gyorsítótára soha ne keverjen össze két kiadást. A címkét
+deploy előtt frissíteni kell:
+
+```bash
+bash tools/version.sh
+```
+
 Nincs külső hálózati hívás: a Bootstrap, a `qrcode-generator`, a `jsPDF` és az Inter betűtípus mind a `vendor/` mappában van, a repóból töltődik be. Az oldal internet nélkül is teljes értékűen működik.
 
 ## Megjegyzés

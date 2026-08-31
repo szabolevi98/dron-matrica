@@ -1,5 +1,5 @@
-import { PAPERS } from './layouts.js';
-import { svgToString } from './render.js';
+import { PAPERS } from './layouts.js?v=202608311736';
+import { svgToString } from './render.js?v=202608311736';
 
 const NS = 'http://www.w3.org/2000/svg';
 

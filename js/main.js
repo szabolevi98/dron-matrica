@@ -1,19 +1,19 @@
-import { t, setLang, applyI18n, lang } from './i18n.js';
+import { t, setLang, applyI18n, lang } from './i18n.js?v=202608311736';
 import {
   BLOCKS, TYPE_IDS, typeMeta, defaultType, defaultBlocks,
   THEMES, FONTS, SIZE_PRESETS
-} from './layouts.js';
-import { derive, contrast, contrastLevel, mixOver } from './validate.js';
-import { renderSticker } from './render.js';
+} from './layouts.js?v=202608311736';
+import { derive, contrast, contrastLevel, mixOver } from './validate.js?v=202608311736';
+import { renderSticker } from './render.js?v=202608311736';
 import {
   exportPng, exportSvg, exportPdf, download, safeName,
   packSheets, perSheet, buildPrintDom, setPageSize
-} from './export.js';
+} from './export.js?v=202608311736';
 import {
   listProfiles, activeProfileId, saveProfile, deleteProfile,
   setActiveProfile, lastState, rememberState, encodeShare, decodeShare,
   mobileNoteHidden, hideMobileNote
-} from './store.js';
+} from './store.js?v=202608311736';
 
 const $ = id => document.getElementById(id);
 const MM_PX = 96 / 25.4;
