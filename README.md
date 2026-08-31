@@ -1,6 +1,6 @@
 # Drón Matrica Stúdió
 
-Nyomdakész drón azonosító matricák a böngésződben: üzembentartói regisztrációs szám, lajstromszám, kontakt- és akkumulátor-címkék, QR kóddal, mm-pontos nyomtatással. Nincs backend, nincs feltöltés: minden adat a gépeden marad.
+Nyomdakész drón azonosító matricák a böngésződben: üzembentartói regisztrációs szám, drón azonosító, kontakt- és akkumulátor-címkék, QR kóddal, mm-pontos nyomtatással. Nincs backend, nincs feltöltés: minden adat a gépeden marad.
 
 **Élő demó:** [dron-matrica.levente.net](https://dron-matrica.levente.net/) · [GitHub Pages](https://szabolevi98.github.io/dron-matrica/)
 
@@ -14,13 +14,13 @@ Nyomdakész drón azonosító matricák a böngésződben: üzembentartói regis
 | --- | --- | --- |
 | Vegyes matrica | 55 × 35 mm | Mindkét kötelező azonosító egyetlen matricán |
 | Üzembentartói matrica | 55 × 35 mm | A kötelező `HUN…` regisztrációs jelölés |
-| Lajstrom matrica | 55 × 35 mm | Lajstromszám, típus, tömeg és osztály |
+| Azonosító matrica | 55 × 35 mm | Drón azonosító, típus, tömeg és osztály |
 | Mini · üzembentartó | 26 × 10 mm | Csak a `HUN…` szám akkura, kontrollerre, táskára |
-| Mini · lajstrom | 26 × 10 mm | Csak a lajstromszám, ugyanabban a méretben |
+| Mini · azonosító | 26 × 10 mm | Csak a drón azonosító, ugyanabban a méretben |
 | Kontakt matrica | 55 × 35 mm | Név, telefon, e-mail + QR a megtalálónak |
 | Akku címke | 40 × 20 mm | Sorszám, kapacitás, dátum, sorszámozott sorozatban |
 
-A jogszabály csak a két azonosítót írja elő: az üzembentartói számot és a drón lajstromszámát. A név, telefonszám, e-mail és weboldal mind opcionális. Ezért az első két típus önmagában is elég, a többi extra.
+A jogszabály csak a két azonosítót írja elő: az üzembentartói számot és a drón azonosítóját. A név, telefonszám, e-mail és weboldal mind opcionális. Ezért az első két típus önmagában is elég, a többi extra.
 
 Minden típus mérete, alakja, tartalma és sorrendje külön állítható, és egyszerre több típus is nyomtatható egy ívre.
 
