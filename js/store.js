@@ -1,4 +1,5 @@
 const KEY = 'dronmatrica.v1';
+const NOTE_KEY = 'dronmatrica.mobileNote';
 
 function read() {
   try {
@@ -18,6 +19,22 @@ function read() {
 function write(db) {
   try {
     localStorage.setItem(KEY, JSON.stringify(db));
+  } catch (e) {
+    /* storage unavailable */
+  }
+}
+
+export function mobileNoteHidden() {
+  try {
+    return localStorage.getItem(NOTE_KEY) === 'off';
+  } catch (e) {
+    return false;
+  }
+}
+
+export function hideMobileNote() {
+  try {
+    localStorage.setItem(NOTE_KEY, 'off');
   } catch (e) {
     /* storage unavailable */
   }

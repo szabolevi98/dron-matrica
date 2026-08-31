@@ -1,6 +1,8 @@
 const DICT = {
   hu: {
     'brand.name': 'Drón Matrica Stúdió',
+    'mobile.note': 'Mobilon minden funkció működik, de a szerkesztés nagyobb képernyőn kényelmesebb.',
+    'mobile.close': 'Üzenet bezárása',
     'brand.sub': 'Nyomdakész azonosító matricák',
     'doc.title': 'Drón Matrica Stúdió',
     'doc.desc': 'Nyomdakész drón azonosító matrica generátor: üzembentartói szám, lajstromszám, QR kód, mm-pontos nyomtatás.',
@@ -213,6 +215,8 @@ const DICT = {
 
   en: {
     'brand.name': 'Drone Label Studio',
+    'mobile.note': 'Everything works on mobile, but editing is more comfortable on a bigger screen.',
+    'mobile.close': 'Dismiss message',
     'brand.sub': 'Print-ready identification labels',
     'doc.title': 'Drone Label Studio',
     'doc.desc': 'Print-ready drone identification label generator: operator registration number, aircraft registration, QR code, millimetre-accurate printing.',
