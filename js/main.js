@@ -62,7 +62,7 @@ function defaultState(demo) {
       theme: 'midnight',
       bg: '#0f172a', fg: '#ffffff', accent: '#38bdf8', borderColor: '#38bdf8',
       font: 'sans', fill: 92, tracking: 2, align: 'middle',
-      upper: true, monoIds: true, bilingual: false, regCaption: 'reg',
+      upper: true, monoIds: true, bilingual: false, regCaption: 'id',
       border: 0.35, padding: 2.6
     },
     qr: { mode: 'tel', text: '', ecl: 'M', pos: 'right', scale: 42 },
