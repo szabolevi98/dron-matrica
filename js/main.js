@@ -11,7 +11,8 @@ import {
 } from './export.js';
 import {
   listProfiles, activeProfileId, saveProfile, deleteProfile,
-  setActiveProfile, lastState, rememberState, encodeShare, decodeShare
+  setActiveProfile, lastState, rememberState, encodeShare, decodeShare,
+  mobileNoteHidden, hideMobileNote
 } from './store.js';
 
 const $ = id => document.getElementById(id);
@@ -1087,6 +1088,15 @@ function boot() {
   $('d-scale').min = 55;
   $('d-scale').max = 100;
   if (d.fill > 100) d.fill = 92;
+
+  const note = $('mobileNote');
+  if (note && !mobileNoteHidden()) {
+    note.hidden = false;
+    $('mobileNoteClose').addEventListener('click', () => {
+      note.hidden = true;
+      hideMobileNote();
+    });
+  }
 
   const yearNode = $('creditYear');
   if (yearNode) yearNode.textContent = new Date().getFullYear();
