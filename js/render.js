@@ -1,7 +1,7 @@
-import { BLOCKS, fontStack, MONO_STACK } from './layouts.js';
-import { t, tIn } from './i18n.js';
-import { contrast } from './validate.js';
-import { qrContent, qrMatrix, qrPath } from './qr.js';
+import { BLOCKS, fontStack, MONO_STACK } from './layouts.js?v=202608311736';
+import { t, tIn } from './i18n.js?v=202608311736';
+import { contrast } from './validate.js?v=202608311736';
+import { qrContent, qrMatrix, qrPath } from './qr.js?v=202608311736';
 
 const NS = 'http://www.w3.org/2000/svg';
 const XLINK = 'http://www.w3.org/1999/xlink';
