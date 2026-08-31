@@ -18,7 +18,7 @@ import {
 const $ = id => document.getElementById(id);
 const MM_PX = 96 / 25.4;
 
-const SAMPLE = {
+const PLACEHOLDER = {
   operatorId: 'HUNabc123def456',
   regId: 'HA00ABC-UAS',
   owner: 'Kovács János',
@@ -33,7 +33,7 @@ const SAMPLE = {
   batCap: '2590 mAh'
 };
 
-function defaultState(demo) {
+function defaultState() {
   const types = {};
   TYPE_IDS.forEach(id => { types[id] = defaultType(id); });
   return {
@@ -41,20 +41,20 @@ function defaultState(demo) {
     lang: 'hu',
     active: 'mixed',
     data: {
-      operatorId: demo ? SAMPLE.operatorId : '',
-      regId: demo ? SAMPLE.regId : '',
-      owner: demo ? SAMPLE.owner : '',
+      operatorId: '',
+      regId: '',
+      owner: '',
       dial: '+36',
-      phone: demo ? SAMPLE.phone : '',
-      email: demo ? SAMPLE.email : '',
-      text: demo ? SAMPLE.text : '',
-      model: demo ? SAMPLE.model : '',
-      serial: demo ? SAMPLE.serial : '',
-      mtom: demo ? SAMPLE.mtom : '',
-      cls: demo ? SAMPLE.cls : '',
+      phone: '',
+      email: '',
+      text: '',
+      model: '',
+      serial: '',
+      mtom: '',
+      cls: '',
       url: '',
-      batNo: demo ? SAMPLE.batNo : '',
-      batCap: demo ? SAMPLE.batCap : '',
+      batNo: '',
+      batCap: '',
       batDate: ''
     },
     types,
@@ -76,7 +76,7 @@ function defaultState(demo) {
   };
 }
 
-let state = defaultState(true);
+let state = defaultState();
 let profileId = null;
 let history = [];
 let future = [];
@@ -101,7 +101,7 @@ function merge(target, src) {
 }
 
 function adopt(raw) {
-  const base = defaultState(false);
+  const base = defaultState();
   const next = merge(base, raw || {});
   TYPE_IDS.forEach(id => {
     if (!next.types[id]) next.types[id] = defaultType(id);
@@ -159,6 +159,14 @@ function toast(msg, kind) {
   node.textContent = msg;
   $('toastStack').appendChild(node);
   setTimeout(() => node.remove(), 3200);
+}
+
+function isBlank() {
+  return Object.keys(state.data).every(k => k === 'dial' || !String(state.data[k] || '').trim());
+}
+
+function previewData() {
+  return derive(isBlank() ? { ...state.data, ...PLACEHOLDER } : state.data, state.lang);
 }
 
 function typeName(id) { return t('type.' + id); }
@@ -658,7 +666,8 @@ function updateWarnings(info, d, cc) {
   box.textContent = '';
   const list = [];
 
-  if (!d.operatorId) list.push(['err', 'v.empty']);
+  if (isBlank()) list.push(['warn', 'v.placeholder']);
+  else if (!d.operatorId) list.push(['err', 'v.empty']);
   else if (d.operatorSecret) list.push(['err', 'v.secret']);
   if (!d.regId && (state.active === 'reg' || state.active === 'miniReg')) list.push(['warn', 'v.noReg']);
   if (info && Number.isFinite(info.minFont) && info.minFont > 0 && info.minFont < 1.5) list.push(['warn', 'v.tiny']);
@@ -715,7 +724,8 @@ function fitZoom() {
 }
 
 function renderPreview() {
-  const d = derive(state.data, state.lang);
+  const d = previewData();
+  const real = derive(state.data, state.lang);
   const cfg = state.types[state.active];
   const result = renderSticker(state.active, state, d);
   lastSvg = result.svg;
@@ -743,9 +753,9 @@ function renderPreview() {
   });
 
   const cc = updateContrast();
-  updateWarnings(result.info, d, cc);
+  updateWarnings(result.info, real, cc);
   updateQrInfo(result.info);
-  updateSeriesHint(d);
+  updateSeriesHint(real);
 }
 
 function syncAll() {
@@ -859,7 +869,18 @@ function flashBasket() {
   box.scrollIntoView({ block: 'center', behavior: 'smooth' });
 }
 
+function requireData() {
+  if (!isBlank()) return true;
+  openPane('pane-data');
+  const field = $('f-regId');
+  field.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  field.focus();
+  toast(t('toast.blank'), 'bad');
+  return false;
+}
+
 function doPrint() {
+  if (!requireData()) return;
   const items = state.print.basket
     .filter(b => b.count > 0)
     .map(b => ({ typeId: b.typeId, count: b.count, w: state.types[b.typeId].w, h: state.types[b.typeId].h }));
@@ -876,6 +897,7 @@ function doPrint() {
 }
 
 async function handleExport(kind, dpi) {
+  if (['png', 'svg', 'pdf'].includes(kind) && !requireData()) return;
   const cfg = state.types[state.active];
   const d = derive(state.data, state.lang);
   const { svg } = renderSticker(state.active, state, d);
@@ -1001,7 +1023,7 @@ function wire() {
     btn.addEventListener('click', () => {
       const apply = RESETS[btn.dataset.reset];
       if (!apply) return;
-      apply(state, defaultState(false));
+      apply(state, defaultState());
       commit();
     });
   });

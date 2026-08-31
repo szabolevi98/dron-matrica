@@ -57,6 +57,7 @@ const DICT = {
 
     'f.operatorId.hint': 'A hatóságtól kapott azonosító, pontosan úgy, ahogy megkaptad.',
     'f.operatorId.secret': 'A kötőjel utáni rész a titkos ellenőrző kód. Töröld ki, ne kerüljön a matricára.',
+    'v.placeholder': 'Mintaadatok láthatók, töltsd ki a mezőket',
     'v.empty': 'Add meg az üzembentartói azonosítót',
     'v.secret': 'A titkos ellenőrző kód rákerülne a matricára',
     'v.noReg': 'Nincs megadva drón azonosító',
@@ -163,6 +164,7 @@ const DICT = {
     'toast.badFile': 'Nem sikerült beolvasni a fájlt',
     'toast.exported': 'Exportálva: {n}',
     'toast.basketEmpty': 'A nyomtatási kosár üres',
+    'toast.blank': 'Töltsd ki az adatokat, most csak minta látszik',
     'toast.newProfile': 'Új drón neve',
     'toast.pdfMissing': 'A PDF könyvtár nem érhető el, próbáld a PNG exportot',
     'toast.imgTooBig': 'A kép túl nagy (max 4 MB)',
@@ -272,6 +274,7 @@ const DICT = {
 
     'f.operatorId.hint': 'The identifier issued by the authority, exactly as you received it.',
     'f.operatorId.secret': 'The part after the hyphen is the secret verification code. Remove it, it must not go on the label.',
+    'v.placeholder': 'Showing sample data, fill in the fields',
     'v.empty': 'Enter your operator registration number',
     'v.secret': 'The secret verification code would end up on the label',
     'v.noReg': 'No drone identifier entered',
@@ -378,6 +381,7 @@ const DICT = {
     'toast.badFile': 'Could not read the file',
     'toast.exported': 'Exported: {n}',
     'toast.basketEmpty': 'The print queue is empty',
+    'toast.blank': 'Fill in your data, only a sample is shown',
     'toast.newProfile': 'Name of the new drone',
     'toast.pdfMissing': 'PDF library unavailable, try the PNG export',
     'toast.imgTooBig': 'Image too large (max 4 MB)',
