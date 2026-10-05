@@ -94,4 +94,12 @@ A client-side studio for print-ready drone identification labels. Seven label ty
 
 ## Licenc
 
-MIT licenc. Copyright © 2026 [szabolevi98](https://levente.net/)
+Copyright © 2026 Levente Szabó ([szabolevi98](https://levente.net/)).
+
+A projekt saját forráskódja a **GNU Affero General Public License, Version 3** alatt használható, módosítható és terjeszthető (`AGPL-3.0-only`). A teljes licencszöveget a [LICENSE](LICENSE) tartalmazza.
+
+Ha egy módosított változatot hálózaton keresztül mások számára elérhetővé teszel, a felhasználóinak jól látható módon fel kell ajánlanod az adott változathoz tartozó teljes forráskód ingyenes elérését, a licenc 13. szakasza szerint.
+
+A külső könyvtárak és betűtípusok továbbra is a saját licenceik alatt érhetők el; ezeket nem licenceljük át AGPL-re. A Bootstrap, a qrcode-generator és a jsPDF MIT-licencű, az Inter betűtípusra a SIL Open Font License 1.1 vonatkozik. Részletek: [vendor/README.md](vendor/README.md).
+
+A korábban MIT-licenccel kiadott változatokra továbbra is az akkori MIT-licenc vonatkozik.
